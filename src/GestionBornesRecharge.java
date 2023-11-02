@@ -23,7 +23,7 @@ public class GestionBornesRecharge {
         }
         StringBuilder builder = new StringBuilder();
         for (Ville ville : villesAvecBornes) {
-            builder.append(ville.getNom());
+            builder.append(ville.getNom()).append(" ");
         }
         return builder.toString();
     }
