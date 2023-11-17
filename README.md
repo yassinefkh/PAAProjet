@@ -3,6 +3,9 @@ Ce projet à pour but de créer un programme Java qui simule une communauté d'a
 
 La communauté est représentée par un graphe non-orienté, où les noeuds sont des villes et les arêtes des routes. Le programme permettra de configurer manuellement les zones de recharge, tout en respectant les contraintes d'accessibilité et d'économie. Des solutions optimales seront recherchées pour minimiser le nombre de zones de recharge nécessaires.
 
+# Execution du programme
+
+>> javac *.java && java main
 
 ## Auteurs
 
