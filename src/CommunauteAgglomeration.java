@@ -11,6 +11,9 @@ class CommunauteAgglomeration {
     private final List<Route> routes; // liste des routes entre les villes
     private final Map<String, Ville> nomVilleAssociation; // association entre les noms de ville et les instances
 
+    // representation par liste d'arêtes, convenable pour des graphes de taille correct, mais pas pour de grands graphes 
+    // todo : demander au prof si c'est un bon choix ou bien faut penser à une autre structure ? 
+
     public CommunauteAgglomeration() {
         villes = new ArrayList<>();
         routes = new ArrayList<>();
