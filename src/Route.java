@@ -35,4 +35,13 @@ class Route {
     public Ville getVilleB() {
         return villeB;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Route other = (Route) obj;
+        return (villeA.equals(other.villeA) && villeB.equals(other.villeB)) ||
+               (villeA.equals(other.villeB) && villeB.equals(other.villeA));
+    }
 }
