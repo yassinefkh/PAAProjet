@@ -1,14 +1,18 @@
 import java.util.Scanner;
 
 public class Main {
+    private static final Scanner scanner = new Scanner(System.in);
+    private static CommunauteAgglomeration communaute = new CommunauteAgglomeration();
+
     public static void main(String[] args) {
-
-        // todo : main temporaire, le mieux est de séparer la logique en plusieurs méthodes et de garder un main léger.
-        
-        Scanner scanner = new Scanner(System.in);
-        CommunauteAgglomeration communaute = new CommunauteAgglomeration();
-
         System.out.println("\n=== Gestionnaire de Bornes de Recharge ===");
+        configurerVilles();
+        configurerRoutes();
+        gererBornesRecharge();
+        scanner.close();
+    }
+
+    private static void configurerVilles() {
         System.out.print("Combien de villes souhaitez-vous configurer ? ");
         int nombreVilles = scanner.nextInt();
         scanner.nextLine();
@@ -18,34 +22,22 @@ public class Main {
             String nomVille = scanner.nextLine();
             communaute.ajouterVille(new Ville(nomVille));
         }
+    }
 
+    private static void configurerRoutes() {
         boolean configTerminee = false;
 
         while (!configTerminee) {
             System.out.println("\n================ Menu de Configuration =================");
             System.out.println("1) Ajouter une route");
             System.out.println("2) Terminer la configuration");
-            System.out.print("Choix : "); // todo : rajouter les cas ou l'utilisateurs tape !(int)
+            System.out.print("Choix : ");
             int choix = scanner.nextInt();
             scanner.nextLine();
 
             switch (choix) {
                 case 1:
-                    System.out.print("Ville de départ : ");
-                    String nomVilleA = scanner.nextLine();
-                    System.out.print("Ville d'arrivée : ");
-                    String nomVilleB = scanner.nextLine();
-
-                    Ville villeA = communaute.getVilleParNom(nomVilleA);
-                    Ville villeB = communaute.getVilleParNom(nomVilleB);
-
-                    if (villeA != null && villeB != null) {
-                        Route route = new Route(villeA, villeB);
-                        communaute.ajouterRoute(route);
-                        System.out.println("Route ajoutée entre " + nomVilleA + " et " + nomVilleB + ".");
-                    } else {
-                        System.out.println("Ville non trouvée, vérifiez les noms.");
-                    }
+                    ajouterRoute();
                     break;
                 case 2:
                     configTerminee = true;
@@ -54,7 +46,31 @@ public class Main {
                     System.out.println("Choix invalide, veuillez choisir une option valide.");
             }
         }
+    }
 
+    private static void ajouterRoute() {
+        System.out.print("Ville de départ : ");
+        String nomVilleA = scanner.nextLine();
+        System.out.print("Ville d'arrivée : ");
+        String nomVilleB = scanner.nextLine();
+
+        Ville villeA = communaute.getVilleParNom(nomVilleA);
+        Ville villeB = communaute.getVilleParNom(nomVilleB);
+
+        if (villeA != null && villeB != null) {
+            Route route = new Route(villeA, villeB);
+            boolean routeAjoutee = communaute.ajouterRoute(route);
+            if (routeAjoutee) {
+                System.out.println("Route ajoutée entre " + nomVilleA + " et " + nomVilleB + ".");
+            } else {
+                System.out.println("Cette route existe déjà entre " + nomVilleA + " et " + nomVilleB + ".");
+            }
+        } else {
+            System.out.println("Ville non trouvée, vérifiez les noms.");
+        }
+    }
+
+    private static void gererBornesRecharge() {
         boolean solutionTrouvee = false;
 
         while (!solutionTrouvee) {
@@ -72,36 +88,10 @@ public class Main {
 
             switch (choixGestion) {
                 case 1:
-                    System.out.print("Nom de la ville où ajouter une zone de recharge : ");
-                    String nomVilleAjout = scanner.nextLine();
-                    Ville villeAjout = communaute.getVilleParNom(nomVilleAjout);
-                    if (villeAjout != null) {
-                        if (!villeAjout.possedeBorneRecharge()) {
-                            villeAjout.ajouterBorneRecharge();
-                            System.out.println("Zone de recharge ajoutée à la ville " + nomVilleAjout + ".");
-                        } else {
-                            System.out.println("Cette ville a déjà une zone de recharge.");
-                        }
-                    } else {
-                        System.out.println("Ville non trouvée. Vérifiez le nom.");
-                    }
+                    ajouterZoneDeRecharge();
                     break;
                 case 2:
-                    System.out.print("Nom de la ville où retirer une zone de recharge : ");
-                    String nomVilleRetrait = scanner.nextLine();
-                    Ville villeRetrait = communaute.getVilleParNom(nomVilleRetrait);
-
-                    if (villeRetrait != null) {
-                        if (GestionBornesRecharge.peutRetirerBorneRecharge(villeRetrait, communaute)) {
-                            villeRetrait.retirerBorneRecharge();
-                            System.out.println("Zone de recharge retirée de la ville " + nomVilleRetrait + ".");
-                        } else {
-                            System.out.println(
-                                    "\n !! Impossible de retirer la zone de recharge, contrainte d'accessibilité violée !!");
-                        }
-                    } else {
-                        System.out.println("Ville non trouvée, vérifiez le nom.");
-                    }
+                    retirerZoneDeRecharge();
                     break;
                 case 3:
                     solutionTrouvee = true;
@@ -110,11 +100,39 @@ public class Main {
                     System.out.println("Choix invalide, veuillez choisir une option valide.");
             }
         }
-
-        System.out.println("\n ------->  Liste des villes avec des bornes de recharge : "
-                + GestionBornesRecharge.listeVillesAvecBornesRecharge(communaute));
-
-        scanner.close();
     }
 
+    private static void ajouterZoneDeRecharge() {
+        System.out.print("Nom de la ville où ajouter une zone de recharge : ");
+        String nomVilleAjout = scanner.nextLine();
+        Ville villeAjout = communaute.getVilleParNom(nomVilleAjout);
+        if (villeAjout != null) {
+            if (!villeAjout.possedeBorneRecharge()) {
+                villeAjout.ajouterBorneRecharge();
+                System.out.println("Zone de recharge ajoutée à la ville " + nomVilleAjout + ".");
+            } else {
+                System.out.println("Cette ville a déjà une zone de recharge.");
+            }
+        } else {
+            System.out.println("Ville non trouvée. Vérifiez le nom.");
+        }
+    }
+
+    private static void retirerZoneDeRecharge() {
+        System.out.print("Nom de la ville où retirer une zone de recharge : ");
+        String nomVilleRetrait = scanner.nextLine();
+        Ville villeRetrait = communaute.getVilleParNom(nomVilleRetrait);
+
+        if (villeRetrait != null) {
+            if (GestionBornesRecharge.peutRetirerBorneRecharge(villeRetrait, communaute)) {
+                villeRetrait.retirerBorneRecharge();
+                System.out.println("Zone de recharge retirée de la ville " + nomVilleRetrait + ".");
+            } else {
+                System.out.println(
+                    "\n[Erreur] Retrait de la zone de recharge refusé : Violation des règles d'accessibilité.");
+            }
+        } else {
+            System.out.println("Ville non trouvée, vérifiez le nom.");
+        }
+    }
 }
