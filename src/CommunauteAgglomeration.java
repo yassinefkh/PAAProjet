@@ -33,8 +33,13 @@ class CommunauteAgglomeration {
      * 
      * @param route La nouvelle route à ajouter à la communauté.
      */
-    public void ajouterRoute(Route route) {
-        routes.add(route);
+    public boolean ajouterRoute(Route route) {
+        if (!routes.contains(route)) {
+            routes.add(route);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -96,7 +101,7 @@ class CommunauteAgglomeration {
         } else {
             System.out.println("\n------ Routes actuelles dans la communauté d'agglomération ------");
             for (Route route : routes) {
-                System.out.println( route.getVilleA().getNom() + " --- " + route.getVilleB().getNom());
+                System.out.println(route.getVilleA().getNom() + " --- " + route.getVilleB().getNom());
             }
             System.out.println("-------------------------------------------------\n");
         }
