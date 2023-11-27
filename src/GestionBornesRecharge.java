@@ -33,82 +33,56 @@ public class GestionBornesRecharge {
     }
 
     /**
-     * Détermine si une borne de recharge peut être retirée d'une ville, en
-     * respectant la contrainte
-     * d'accessibilité.
-     *
-     * @param ville      La ville sur laquelle on souhaite vérifier la possibilité
-     *                   de retrait.
-     * @param communaute L'instance de la communauté d'agglomération où se situe la
-     *                   ville.
-     * @return true si la borne peut être retirée, false sinon.
+     * Vérifie si une borne de recharge peut être retirée d'une ville en respectant
+     * la règle d'accessibilité
+     * 
+     * @param ville      La ville pour laquelle la borne de recharge est envisagée à
+     *                   être retirée
+     * @param communaute L'instance de la communauté d'agglomération
+     * @return true si la borne de recharge peut être retirée, false sinon
      */
     public static boolean peutRetirerBorneRecharge(Ville ville, CommunauteAgglomeration communaute) {
-
-        // Si la ville est isolée (sans routes la connectant aux autres), ne pas retirer
-        // la borne
-        if (estIsolee(ville, communaute)) {
-            return false;
-        }
-
-        // Si la ville n'a pas de borne de recharge, on ne peut pas la retirer
         if (!ville.possedeBorneRecharge()) {
             return false;
         }
 
-        // on retire temporairement la borne de recharge pour test
-        ville.retirerBorneRecharge();
-
-        // verificatoin de l'accessibilité des autres villes à une ville avec borne
-        boolean accesPossible = true;
-        for (Ville autreVille : communaute.getVilles()) {
-            if (autreVille != ville && !estAccessibleAvecBorne(autreVille, communaute)) {
-                accesPossible = false;
-                break;
-            }
-        }
-
-        // on remet la borne de recharge
-        ville.ajouterBorneRecharge();
-
-        return accesPossible;
-    }
-
-    private static boolean estAccessibleAvecBorne(Ville ville, CommunauteAgglomeration communaute) {
-        Map<Ville, Boolean> visitees = new HashMap<>();
-        return dfsBorne(ville, communaute, visitees);
-    }
-
-    private static boolean dfsBorne(Ville ville, CommunauteAgglomeration communaute, Map<Ville, Boolean> visitees) {
-        visitees.put(ville, true);
-
-        if (ville.possedeBorneRecharge()) {
-            return true;
-        }
-
+        // vérifie si la ville est la seule source de recharge pour une autre ville
         for (Route route : communaute.getRoutes()) {
             Ville villeA = route.getVilleA();
             Ville villeB = route.getVilleB();
 
-            if ((ville.equals(villeA) || ville.equals(villeB)) && !visitees.getOrDefault(villeB, false)) {
-                Ville villeSuivante = ville.equals(villeA) ? villeB : villeA;
-                if (dfsBorne(villeSuivante, communaute, visitees)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    // pour gérer le cas d'une ville isolée
-    private static boolean estIsolee(Ville ville, CommunauteAgglomeration communaute) {
-        for (Route route : communaute.getRoutes()) {
-            if (route.getVilleA().equals(ville) || route.getVilleB().equals(ville)) {
+            if ((ville.equals(villeA) && !villeB.possedeBorneRecharge()
+                    && !estRelieeAVilleAvecBorne(villeB, ville, communaute)) ||
+                    (ville.equals(villeB) && !villeA.possedeBorneRecharge()
+                            && !estRelieeAVilleAvecBorne(villeA, ville, communaute))) {
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * Vérifie si une ville est reliée directement à une autre ville possédant une
+     * borne de recharge, à l'exception d'une ville spécifique
+     * 
+     * @param ville          La ville à vérifier
+     * @param villeException La ville à exclure de la vérification
+     * @param communaute     L'instance de la communauté d'agglomération
+     * @return true si la ville est reliée à une autre ville avec borne, false
+     *         sinon
+     */
+    private static boolean estRelieeAVilleAvecBorne(Ville ville, Ville villeException, CommunauteAgglomeration communaute) {
+        for (Route route : communaute.getRoutes()) {
+            if (route.getVilleA().equals(ville) && !route.getVilleB().equals(villeException)
+                    && route.getVilleB().possedeBorneRecharge()) {
+                return true;
+            }
+            if (route.getVilleB().equals(ville) && !route.getVilleA().equals(villeException)
+                    && route.getVilleA().possedeBorneRecharge()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
