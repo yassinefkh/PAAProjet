@@ -41,7 +41,7 @@ public class Main {
                 System.out.println("- Route entre " + route.getVilleA().getNom() + " et " + route.getVilleB().getNom());
             }
     
-            System.out.println("\nVilles avec zone de recharge:");
+            //System.out.println("\nVilles avec zone de recharge:");
             communaute.afficherVillesAvecZoneDeRecharge();
         }
     
