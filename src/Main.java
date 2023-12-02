@@ -14,7 +14,7 @@ public class Main {
     } */
 
   
-        public static void main(String[] args) throws IOException {
+       /*  public static void main(String[] args) throws IOException {
             if (args.length < 1) {
                 System.out.println("Usage: java Main <chemin_du_fichier>");
                 return;
@@ -26,7 +26,76 @@ public class Main {
             
             // Affichage des informations sur la communauté
             afficherInformationsCommunaute(communaute);
+        } */
+
+
+    public static void main(String[] args) {
+        if (args.length < 1) {
+            System.out.println("Usage: java Main <chemin_du_fichier>");
+            return;
         }
+        String cheminFichier = args[0];
+        try {
+            ChargerCommunauteDepuisFichier chargeur = new ChargerCommunauteDepuisFichier(cheminFichier);
+            communaute = chargeur.getCommunaute(); 
+            
+        
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement du fichier de communauté.");
+            e.printStackTrace();
+            return;
+        }
+
+        int choix;
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1) Résoudre manuellement");
+            System.out.println("2) Résoudre automatiquement");
+            System.out.println("3) Sauvegarder");
+            System.out.println("4) Fin");
+            System.out.print("Entrez votre choix: ");
+            choix = scanner.nextInt();
+
+            switch (choix) {
+                case 1:
+                    resoudreManuellement();
+                    break;
+                case 2:
+                    resoudreAutomatiquement();
+                    break;
+                case 3:
+                    sauvegarderSolution();
+                    break;
+                case 4:
+                    System.out.println("Fin du programme.");
+                    break;
+                default:
+                    System.out.println("Choix invalide, veuillez réessayer.");
+            }
+        } while (choix != 4);
+        
+        scanner.close();
+    }
+
+    // ???
+    private static void resoudreManuellement() {
+        System.out.println("\n=== Gestionnaire de Bornes de Recharge ===");
+        configurerVilles();
+        configurerRoutes();
+        gererBornesRecharge();
+        scanner.close();
+    }
+
+    private static void resoudreAutomatiquement() {
+        // TODO
+    }
+
+    private static void sauvegarderSolution() {
+        System.out.print("Entrez le chemin de sauvegarde pour la solution: ");
+        scanner.nextLine(); 
+        String cheminSauvegarde = scanner.nextLine();
+        // TODO
+    }
         
         private static void afficherInformationsCommunaute(CommunauteAgglomeration communaute) {
             System.out.println("Informations sur la communauté d'agglomération:");
