@@ -11,6 +11,7 @@ class CommunauteAgglomeration {
     private final List<Route> routes; // liste des routes entre les villes
     private final Map<String, Ville> nomVilleAssociation; // association entre les noms de ville et les instances
 
+
     public CommunauteAgglomeration() {
         villes = new ArrayList<>();
         routes = new ArrayList<>();
@@ -106,5 +107,24 @@ class CommunauteAgglomeration {
             System.out.println("-------------------------------------------------\n");
         }
     }
+    public boolean estSolutionValide() {
+        for (Ville ville : this.getVilles()) {
+            if (!ville.possedeBorneRecharge() && !estRelieeAVilleAvecBorne(ville)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    public boolean estRelieeAVilleAvecBorne(Ville ville) {
+        for (Route route : this.getRoutes()) {
+            Ville villeA = route.getVilleA();
+            Ville villeB = route.getVilleB();
+            if ((ville.equals(villeA) && villeB.possedeBorneRecharge()) || 
+                (ville.equals(villeB) && villeA.possedeBorneRecharge())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

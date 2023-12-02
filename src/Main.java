@@ -77,18 +77,100 @@ public class Main {
         scanner.close();
     }
 
-    // ???
+  /*   // ???
     private static void resoudreManuellement() {
         System.out.println("\n=== Gestionnaire de Bornes de Recharge ===");
         configurerVilles();
         configurerRoutes();
         gererBornesRecharge();
         scanner.close();
-    }
+    } */
 
     private static void resoudreAutomatiquement() {
-        // TODO
+        // Appliquer la solution naïve pour commencer
+        appliquerSolutionNaive(communaute);
+    
+        // Appliquer l'algorithme d'approximation pour optimiser les bornes de recharge
+        AlgorithmeApproximation.ameliorerCommunaute(communaute, communaute.getVilles().size() * 2);
+    
+    
+        // Afficher l'état final de la communauté
+        afficherInformationsCommunaute(communaute);
     }
+    
+    
+
+    private static void resoudreManuellement() {
+        // Vérifier si la solution actuelle est valide ou non
+        if (!estSolutionValide(communaute)) {
+            // Si la solution n'est pas valide, appliquer la solution naïve
+            appliquerSolutionNaive(communaute);
+        }
+    
+        boolean gestionTerminee = false;
+        while (!gestionTerminee) {
+            System.out.println("\n--- Menu de Gestion Manuelle des Bornes de Recharge ---");
+            afficherInformationsCommunaute(communaute);
+            System.out.println("1) Ajouter une zone de recharge");
+            System.out.println("2) Retirer une zone de recharge");
+            System.out.println("3) Retourner au menu principal");
+            System.out.print("Votre choix : ");
+            int choix = scanner.nextInt();
+            scanner.nextLine(); // Nettoyer le buffer
+    
+            switch (choix) {
+                case 1:
+                    ajouterZoneDeRecharge();
+                    break;
+                case 2:
+                    retirerZoneDeRecharge();
+                    break;
+                case 3:
+                    gestionTerminee = true;
+                    break;
+                default:
+                    System.out.println("Choix invalide, veuillez choisir une option valide.");
+            }
+        }
+    }
+
+  
+
+    private static void appliquerSolutionNaive(CommunauteAgglomeration communaute) {
+        for (Ville ville : communaute.getVilles()) {
+            if (!ville.possedeBorneRecharge()) {
+                ville.ajouterBorneRecharge();
+            }
+        }
+    }
+    
+    private static boolean estSolutionValide(CommunauteAgglomeration communaute) {
+        for (Ville ville : communaute.getVilles()) {
+            // Vérifier si la ville possède une borne de recharge
+            if (!ville.possedeBorneRecharge()) {
+                // Si la ville n'a pas de borne de recharge, vérifier si elle est reliée à une ville qui en a une
+                if (!estRelieeAVilleAvecBorne(ville, communaute)) {
+                    return false; // Retourner false si une ville ne respecte pas la contrainte d'accessibilité
+                }
+            }
+        }
+        return true; // Toutes les villes respectent la contrainte
+    }
+    
+    private static boolean estRelieeAVilleAvecBorne(Ville ville, CommunauteAgglomeration communaute) {
+        for (Route route : communaute.getRoutes()) {
+            Ville villeA = route.getVilleA();
+            Ville villeB = route.getVilleB();
+    
+            // Vérifier si l'une des villes reliées possède une borne de recharge
+            if ((ville.equals(villeA) && villeB.possedeBorneRecharge()) || 
+                (ville.equals(villeB) && villeA.possedeBorneRecharge())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private static void sauvegarderSolution() {
         System.out.print("Entrez le chemin de sauvegarde pour la solution: ");
