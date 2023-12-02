@@ -8,11 +8,24 @@ public class ChargerCommunauteDepuisFichier {
 
     private CommunauteAgglomeration communaute;
 
+     /**
+     * Constructeur de la classe ChargerCommunauteDepuisFichier.
+     * Charge la communauté d'agglomération depuis un fichier donné.
+     *
+     * @param cheminFichier Le chemin du fichier contenant les informations sur la communauté d'agglomération.
+     * @throws IOException En cas d'erreur de lecture du fichier.
+     */
     public ChargerCommunauteDepuisFichier(String cheminFichier) throws IOException {
         this.communaute = new CommunauteAgglomeration();
         chargerDepuisFichier(cheminFichier);
     }
 
+    /**
+     * Charge les données de la communauté d'agglomération depuis un fichier texte.
+     *
+     * @param cheminFichier Le chemin du fichier contenant les informations sur la communauté d'agglomération.
+     * @throws IOException En cas d'erreur de lecture du fichier.
+     */
     private void chargerDepuisFichier(String cheminFichier) throws IOException {
         Pattern patternVille = Pattern.compile("ville\\((.*?)\\)\\.");
         Pattern patternRoute = Pattern.compile("route\\((.*?),(.*?)\\)\\.");
@@ -52,6 +65,11 @@ public class ChargerCommunauteDepuisFichier {
         }
     }
 
+    /**
+     * Récupère la communauté d'agglomération chargée depuis le fichier.
+     *
+     * @return La communauté d'agglomération chargée.
+     */
     public CommunauteAgglomeration getCommunaute() {
         return communaute;
     }

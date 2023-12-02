@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
@@ -87,17 +90,17 @@ public class Main {
     } */
 
     private static void resoudreAutomatiquement() {
-        // Appliquer la solution naïve pour commencer
         appliquerSolutionNaive(communaute);
-    
-        // Appliquer l'algorithme d'approximation pour optimiser les bornes de recharge
-        AlgorithmeApproximation.ameliorerCommunaute(communaute, communaute.getVilles().size() * 2);
-    
-    
-        // Afficher l'état final de la communauté
+        OptimisationBorne.algorithmeOpti(communaute, communaute.getVilles().size() * 2);
         afficherInformationsCommunaute(communaute);
     }
     
+    
+    private static void retirerToutesLesBornes(CommunauteAgglomeration communaute) {
+        for (Ville ville : communaute.getVilles()) {
+            ville.retirerBorneRecharge();
+        }
+    }
     
 
     private static void resoudreManuellement() {
@@ -135,7 +138,15 @@ public class Main {
     }
 
   
-
+    /**
+     * Applique une solution naïve en ajoutant une borne de recharge à chaque ville de la communauté
+     * d'agglomération qui n'en possède pas déjà.
+     *
+     * Cette méthode parcourt toutes les villes de la communauté d'agglomération et ajoute une borne
+     * de recharge à chaque ville qui n'en possède pas.
+     *
+     * @param communaute La communauté d'agglomération à laquelle appliquer la solution naïve.
+     */
     private static void appliquerSolutionNaive(CommunauteAgglomeration communaute) {
         for (Ville ville : communaute.getVilles()) {
             if (!ville.possedeBorneRecharge()) {
@@ -144,6 +155,16 @@ public class Main {
         }
     }
     
+    /**
+     * Vérifie si la solution actuelle de la communauté d'agglomération est valide en respectant les contraintes d'accessibilité.
+     *
+     * Cette méthode parcourt toutes les villes de la communauté d'agglomération et vérifie si elles respectent la contrainte
+     * d'accessibilité. Une ville est considérée valide si elle possède une borne de recharge ou si elle est reliée à une ville
+     * qui en possède une.
+     *
+     * @param communaute La communauté d'agglomération à vérifier.
+     * @return True si la solution est valide, False sinon.
+     */
     private static boolean estSolutionValide(CommunauteAgglomeration communaute) {
         for (Ville ville : communaute.getVilles()) {
             // Vérifier si la ville possède une borne de recharge
@@ -157,6 +178,17 @@ public class Main {
         return true; // Toutes les villes respectent la contrainte
     }
     
+    /**
+     * Vérifie si une ville donnée est reliée à une autre ville qui possède une borne de recharge.
+     *
+     * Cette méthode parcourt les routes de la communauté d'agglomération pour vérifier si la ville spécifiée
+     * est reliée à une autre ville qui possède une borne de recharge. Elle permet de vérifier si une ville peut
+     * être considérée comme valide en respectant la contrainte d'accessibilité.
+     *
+     * @param ville      La ville à vérifier.
+     * @param communaute La communauté d'agglomération contenant les routes et les autres villes.
+     * @return True si la ville est reliée à une autre ville avec une borne de recharge, False sinon.
+     */
     private static boolean estRelieeAVilleAvecBorne(Ville ville, CommunauteAgglomeration communaute) {
         for (Route route : communaute.getRoutes()) {
             Ville villeA = route.getVilleA();
@@ -171,7 +203,7 @@ public class Main {
         return false;
     }
 
-
+    // TODO
     private static void sauvegarderSolution() {
         System.out.print("Entrez le chemin de sauvegarde pour la solution: ");
         scanner.nextLine(); 
@@ -179,22 +211,25 @@ public class Main {
         // TODO
     }
         
-        private static void afficherInformationsCommunaute(CommunauteAgglomeration communaute) {
-            System.out.println("Informations sur la communauté d'agglomération:");
-    
-            System.out.println("\nListe des villes:");
-            for (Ville ville : communaute.getVilles()) {
-                System.out.println("- " + ville.getNom() + (ville.possedeBorneRecharge() ? " (avec borne de recharge)" : ""));
-            }
-    
-            System.out.println("\nListe des routes:");
-            for (Route route : communaute.getRoutes()) {
-                System.out.println("- Route entre " + route.getVilleA().getNom() + " et " + route.getVilleB().getNom());
-            }
-    
-            //System.out.println("\nVilles avec zone de recharge:");
-            communaute.afficherVillesAvecZoneDeRecharge();
+    /**
+     * Affiche les informations détaillées sur la communauté d'agglomération.
+     */
+    private static void afficherInformationsCommunaute(CommunauteAgglomeration communaute) {
+        System.out.println("Informations sur la communauté d'agglomération:");
+
+        System.out.println("\nListe des villes:");
+        for (Ville ville : communaute.getVilles()) {
+            System.out.println("- " + ville.getNom() + (ville.possedeBorneRecharge() ? " (avec borne de recharge)" : ""));
         }
+
+        System.out.println("\nListe des routes:");
+        for (Route route : communaute.getRoutes()) {
+            System.out.println("- Route entre " + route.getVilleA().getNom() + " et " + route.getVilleB().getNom());
+        }
+
+        //System.out.println("\nVilles avec zone de recharge:");
+        communaute.afficherVillesAvecZoneDeRecharge();
+    }
     
     
     
