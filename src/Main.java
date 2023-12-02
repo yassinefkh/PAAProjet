@@ -1,17 +1,52 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static CommunauteAgglomeration communaute = new CommunauteAgglomeration();
 
-    public static void main(String[] args) {
+  /*   public static void main(String[] args) {
         System.out.println("\n=== Gestionnaire de Bornes de Recharge ===");
         configurerVilles();
         configurerRoutes();
         gererBornesRecharge();
         scanner.close();
-    }
+    } */
 
+  
+        public static void main(String[] args) throws IOException {
+            if (args.length < 1) {
+                System.out.println("Usage: java Main <chemin_du_fichier>");
+                return;
+            }
+    
+            String cheminFichier = args[0];
+            ChargerCommunauteDepuisFichier chargeur = new ChargerCommunauteDepuisFichier(cheminFichier);
+            CommunauteAgglomeration communaute = chargeur.getCommunaute();
+            
+            // Affichage des informations sur la communauté
+            afficherInformationsCommunaute(communaute);
+        }
+        
+        private static void afficherInformationsCommunaute(CommunauteAgglomeration communaute) {
+            System.out.println("Informations sur la communauté d'agglomération:");
+    
+            System.out.println("\nListe des villes:");
+            for (Ville ville : communaute.getVilles()) {
+                System.out.println("- " + ville.getNom() + (ville.possedeBorneRecharge() ? " (avec borne de recharge)" : ""));
+            }
+    
+            System.out.println("\nListe des routes:");
+            for (Route route : communaute.getRoutes()) {
+                System.out.println("- Route entre " + route.getVilleA().getNom() + " et " + route.getVilleB().getNom());
+            }
+    
+            System.out.println("\nVilles avec zone de recharge:");
+            communaute.afficherVillesAvecZoneDeRecharge();
+        }
+    
+    
+    
     private static void configurerVilles() {
         System.out.print("Combien de villes souhaitez-vous configurer ? ");
         int nombreVilles = scanner.nextInt();
