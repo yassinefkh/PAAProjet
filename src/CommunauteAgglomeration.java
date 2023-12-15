@@ -127,4 +127,25 @@ class CommunauteAgglomeration {
         }
         return false;
     }
+
+
+     /**
+     * Affiche les informations détaillées sur la communauté d'agglomération.
+     */
+    public static void afficherInformationsCommunaute(CommunauteAgglomeration communaute) {
+        System.out.println("Informations sur la communauté d'agglomération:");
+
+        System.out.println("\nListe des villes:");
+        for (Ville ville : communaute.getVilles()) {
+            System.out.println("- " + ville.getNom() + (ville.possedeBorneRecharge() ? " (avec borne de recharge)" : ""));
+        }
+
+        System.out.println("\nListe des routes:");
+        for (Route route : communaute.getRoutes()) {
+            System.out.println("- Route entre " + route.getVilleA().getNom() + " et " + route.getVilleB().getNom());
+        }
+
+        //System.out.println("\nVilles avec zone de recharge:");
+        communaute.afficherVillesAvecZoneDeRecharge();
+    }
 }

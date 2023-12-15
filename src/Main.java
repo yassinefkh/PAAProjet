@@ -8,29 +8,6 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static CommunauteAgglomeration communaute = new CommunauteAgglomeration();
 
-  /*   public static void main(String[] args) {
-        System.out.println("\n=== Gestionnaire de Bornes de Recharge ===");
-        configurerVilles();
-        configurerRoutes();
-        gererBornesRecharge();
-        scanner.close();
-    } */
-
-  
-       /*  public static void main(String[] args) throws IOException {
-            if (args.length < 1) {
-                System.out.println("Usage: java Main <chemin_du_fichier>");
-                return;
-            }
-    
-            String cheminFichier = args[0];
-            ChargerCommunauteDepuisFichier chargeur = new ChargerCommunauteDepuisFichier(cheminFichier);
-            CommunauteAgglomeration communaute = chargeur.getCommunaute();
-            
-            // Affichage des informations sur la communauté
-            afficherInformationsCommunaute(communaute);
-        } */
-
 
     public static void main(String[] args) {
         if (args.length < 1) {
@@ -80,21 +57,13 @@ public class Main {
         scanner.close();
     }
 
-  /*   // ???
-    private static void resoudreManuellement() {
-        System.out.println("\n=== Gestionnaire de Bornes de Recharge ===");
-        configurerVilles();
-        configurerRoutes();
-        gererBornesRecharge();
-        scanner.close();
-    } */
 
     private static void resoudreAutomatiquement() {
         appliquerSolutionNaive(communaute);
-        OptimisationBorne.algorithmeOpti(communaute, communaute.getVilles().size() * 2);
-        afficherInformationsCommunaute(communaute);
+        OptimisationBorne.algorithmeOpti(communaute, communaute.getVilles().size() * 200);
+        CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
     }
-    
+
     
     private static void retirerToutesLesBornes(CommunauteAgglomeration communaute) {
         for (Ville ville : communaute.getVilles()) {
@@ -102,7 +71,6 @@ public class Main {
         }
     }
     
-
     private static void resoudreManuellement() {
         // Vérifier si la solution actuelle est valide ou non
         if (!estSolutionValide(communaute)) {
@@ -113,7 +81,7 @@ public class Main {
         boolean gestionTerminee = false;
         while (!gestionTerminee) {
             System.out.println("\n--- Menu de Gestion Manuelle des Bornes de Recharge ---");
-            afficherInformationsCommunaute(communaute);
+            CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
             System.out.println("1) Ajouter une zone de recharge");
             System.out.println("2) Retirer une zone de recharge");
             System.out.println("3) Retourner au menu principal");
@@ -137,7 +105,6 @@ public class Main {
         }
     }
 
-  
     /**
      * Applique une solution naïve en ajoutant une borne de recharge à chaque ville de la communauté
      * d'agglomération qui n'en possède pas déjà.
@@ -202,35 +169,6 @@ public class Main {
         }
         return false;
     }
-
-    // TODO
-    private static void sauvegarderSolution() {
-        System.out.print("Entrez le chemin de sauvegarde pour la solution: ");
-        scanner.nextLine(); 
-        String cheminSauvegarde = scanner.nextLine();
-        // TODO
-    }
-        
-    /**
-     * Affiche les informations détaillées sur la communauté d'agglomération.
-     */
-    private static void afficherInformationsCommunaute(CommunauteAgglomeration communaute) {
-        System.out.println("Informations sur la communauté d'agglomération:");
-
-        System.out.println("\nListe des villes:");
-        for (Ville ville : communaute.getVilles()) {
-            System.out.println("- " + ville.getNom() + (ville.possedeBorneRecharge() ? " (avec borne de recharge)" : ""));
-        }
-
-        System.out.println("\nListe des routes:");
-        for (Route route : communaute.getRoutes()) {
-            System.out.println("- Route entre " + route.getVilleA().getNom() + " et " + route.getVilleB().getNom());
-        }
-
-        //System.out.println("\nVilles avec zone de recharge:");
-        communaute.afficherVillesAvecZoneDeRecharge();
-    }
-    
     
     
     private static void configurerVilles() {

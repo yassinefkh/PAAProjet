@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.stream.Collectors;
 
 public class OptimisationBorne {
     
@@ -56,6 +56,7 @@ public class OptimisationBorne {
         }
     }
 
+    
     
      /**
      * Calcule le score de la communauté d'agglomération, c'est-à-dire le nombre de villes avec une borne de recharge.
