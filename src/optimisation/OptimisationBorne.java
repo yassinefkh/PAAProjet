@@ -1,12 +1,8 @@
+package optimisation;
+
 
 import java.util.Random;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+
 
 public class OptimisationBorne {
     
@@ -79,4 +75,3 @@ public class OptimisationBorne {
 
 
 }
-

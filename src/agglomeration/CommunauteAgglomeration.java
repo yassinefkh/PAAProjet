@@ -1,3 +1,5 @@
+package agglomeration;
+
 
 
 import java.util.ArrayList;
@@ -89,15 +91,21 @@ class CommunauteAgglomeration {
      * Affiche les villes de la communauté qui possèdent une zone de recharge
      */
     public void afficherVillesAvecZoneDeRecharge() {
-        System.out.print("Villes avec zone de recharge : ");
+        int nombreDeVilles = villes.size();
+        int nombreDeBornes = 0;
+    
+        System.out.print("\nVilles avec zone de recharge : ");
         for (Ville ville : villes) {
             if (ville.possedeBorneRecharge()) {
+                nombreDeBornes++;
                 System.out.print(ville.getNom() + " ");
             }
         }
+    
         System.out.println();
+        System.out.println("Economie - Nombre de bornes : " + nombreDeBornes + "/" + nombreDeVilles);
     }
-
+    
     public void afficherRoutes() {
         if (routes.isEmpty()) {
             System.out.println("Aucune route configurée actuellement.");
@@ -109,6 +117,7 @@ class CommunauteAgglomeration {
             System.out.println("-------------------------------------------------\n");
         }
     }
+
     public boolean estSolutionValide() {
         for (Ville ville : this.getVilles()) {
             if (!ville.possedeBorneRecharge() && !estRelieeAVilleAvecBorne(ville)) {
@@ -135,19 +144,23 @@ class CommunauteAgglomeration {
      * Affiche les informations détaillées sur la communauté d'agglomération.
      */
     public static void afficherInformationsCommunaute(CommunauteAgglomeration communaute) {
-        System.out.println("Informations sur la communauté d'agglomération:");
-
-        System.out.println("\nListe des villes:");
+        System.out.println("Informations sur la communauté d'agglomération:\n");
+    
+        System.out.println("Liste des villes:");
         for (Ville ville : communaute.getVilles()) {
             System.out.println("- " + ville.getNom() + (ville.possedeBorneRecharge() ? " (avec borne de recharge)" : ""));
         }
-
+    
         System.out.println("\nListe des routes:");
         for (Route route : communaute.getRoutes()) {
             System.out.println("- Route entre " + route.getVilleA().getNom() + " et " + route.getVilleB().getNom());
         }
-
-        //System.out.println("\nVilles avec zone de recharge:");
+    
+   
         communaute.afficherVillesAvecZoneDeRecharge();
+    
+        System.out.println("\n----------------------------------------------\n");
     }
+    
+    
 }

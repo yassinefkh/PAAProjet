@@ -1,3 +1,5 @@
+package loader;
+
 
 
 import java.io.BufferedReader;
@@ -5,6 +7,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class ChargerCommunauteDepuisFichier {
 
@@ -33,6 +43,9 @@ public class ChargerCommunauteDepuisFichier {
         Pattern patternRoute = Pattern.compile("route\\((.*?),(.*?)\\)\\.");
         Pattern patternRecharge = Pattern.compile("recharge\\((.*?)\\)\\.");
 
+        Set<String> villesExistantes = new HashSet<>(); // Pour vérifier l'unicité des villes
+        Set<String> routesExistantes = new HashSet<>(); // Pour vérifier l'unicité des routes
+
         try (BufferedReader reader = new BufferedReader(new FileReader(cheminFichier))) {
             String ligne;
             while ((ligne = reader.readLine()) != null) {
@@ -42,30 +55,46 @@ public class ChargerCommunauteDepuisFichier {
 
                 if (matcherVille.find()) {
                     String nomVille = matcherVille.group(1);
-                    communaute.ajouterVille(new Ville(nomVille));
+                    if (!villesExistantes.contains(nomVille)) {
+                        communaute.ajouterVille(new Ville(nomVille));
+                        villesExistantes.add(nomVille);
+                    } else {
+                        throw new VilleDupliqueeException("Erreur : La ville " + nomVille + " est définie plus d'une fois.");
+                    }
                 } else if (matcherRoute.find()) {
                     String villeA = matcherRoute.group(1);
                     String villeB = matcherRoute.group(2);
-                    if (!communaute.ajouterRoute(new Route(communaute.getVilleParNom(villeA), communaute.getVilleParNom(villeB)))) {
-                        System.out.println("Erreur");
+                    if (villesExistantes.contains(villeA) && villesExistantes.contains(villeB)) {
+                        String routeKey = villeA + "-" + villeB;
+                        if (!routesExistantes.contains(routeKey)) {
+                            communaute.ajouterRoute(new Route(communaute.getVilleParNom(villeA), communaute.getVilleParNom(villeB)));
+                            routesExistantes.add(routeKey);
+                        } else {
+                            throw new RouteDupliqueeException("Erreur : La route entre " + villeA + " et " + villeB + " est définie plus d'une fois.");
+                        }
+                    } else {
+                        throw new VilleInexistanteException("Erreur : Les villes " + villeA + " ou " + villeB + " n'existent pas.");
                     }
+    
                 } else if (matcherRecharge.find()) {
                     String villeRecharge = matcherRecharge.group(1);
                     Ville ville = communaute.getVilleParNom(villeRecharge);
                     if (ville != null) {
                         ville.ajouterBorneRecharge();
                     } else {
-                        System.out.println("Erreur: La ville " + villeRecharge + " pour la zone de recharge n'existe pas.");
+                        throw new VilleRechargeInexistanteException("Erreur : La ville " + villeRecharge + " pour la zone de recharge n'existe pas.");
                     }
                 } else {
-                    System.out.println("Erreur: Ligne non reconnue ou malformée -> " + ligne);
+                   
                 }
             }
         } catch (IOException e) {
-            System.out.println("Erreur lors de la lecture du fichier : " + e.getMessage());
-            throw e;
+            System.out.println(e.getMessage());
+            throw new RuntimeException("Erreur lors de la lecture du fichier : " + e.getMessage());
         }
     }
+
+   
 
     /**
      * Récupère la communauté d'agglomération chargée depuis le fichier.

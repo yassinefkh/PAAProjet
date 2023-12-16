@@ -1,13 +1,12 @@
-
-
-import java.io.IOException;
 import java.util.Scanner;
-import java.util.Set;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.File;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
-
-import java.util.List;
-import java.util.ArrayList;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
@@ -22,9 +21,10 @@ public class Main {
         String cheminFichier = args[0];
         try {
             ChargerCommunauteDepuisFichier chargeur = new ChargerCommunauteDepuisFichier(cheminFichier);
-            communaute = chargeur.getCommunaute(); 
-            
-        
+            communaute = chargeur.getCommunaute();
+        } catch (VilleDupliqueeException | RouteDupliqueeException | VilleInexistanteException | VilleRechargeInexistanteException e) {
+            System.out.println(e.getMessage());
+            return; 
         } catch (IOException e) {
             System.out.println("Erreur lors du chargement du fichier de communauté.");
             e.printStackTrace();
@@ -33,12 +33,7 @@ public class Main {
 
         int choix;
         do {
-            System.out.println("\nMenu:");
-            System.out.println("1) Résoudre manuellement");
-            System.out.println("2) Résoudre automatiquement");
-            System.out.println("3) Sauvegarder");
-            System.out.println("4) Fin");
-            System.out.print("Entrez votre choix: ");
+            afficherMenuPrincipal();
             choix = scanner.nextInt();
 
             switch (choix) {
@@ -49,7 +44,7 @@ public class Main {
                     resoudreAutomatiquement();
                     break;
                 case 3:
-                   // sauvegarderSolution();
+                    //sauvegarderSolution();
                     break;
                 case 4:
                     System.out.println("Fin du programme.");
@@ -58,10 +53,20 @@ public class Main {
                     System.out.println("Choix invalide, veuillez réessayer.");
             }
         } while (choix != 4);
-        
-        scanner.close();
-    }
 
+        scanner.close();
+    }  
+    
+    private static void afficherMenuPrincipal() {
+        System.out.println("======================================");
+        System.out.println("           Menu Principal");
+        System.out.println("======================================");
+        System.out.println("1) Résoudre manuellement");
+        System.out.println("2) Résoudre automatiquement");
+        System.out.println("3) Sauvegarder");
+        System.out.println("4) Fin");
+        System.out.print("Entrez votre choix : ");
+    }
 
     private static void resoudreAutomatiquement() {
         appliquerSolutionNaive(communaute);
@@ -70,12 +75,7 @@ public class Main {
     }
 
     
-    private static void retirerToutesLesBornes(CommunauteAgglomeration communaute) {
-        for (Ville ville : communaute.getVilles()) {
-            ville.retirerBorneRecharge();
-        }
-    }
-    
+
     private static void resoudreManuellement() {
         // Vérifier si la solution actuelle est valide ou non
         if (!estSolutionValide(communaute)) {
@@ -175,42 +175,6 @@ public class Main {
         return false;
     }
     
-    
-    private static void configurerVilles() {
-        System.out.print("Combien de villes souhaitez-vous configurer ? ");
-        int nombreVilles = scanner.nextInt();
-        scanner.nextLine();
-
-        for (int i = 0; i < nombreVilles; i++) {
-            System.out.print("Nom de la ville " + (i + 1) + ": ");
-            String nomVille = scanner.nextLine();
-            communaute.ajouterVille(new Ville(nomVille));
-        }
-    }
-
-    private static void configurerRoutes() {
-        boolean configTerminee = false;
-
-        while (!configTerminee) {
-            System.out.println("\n================ Menu de Configuration =================");
-            System.out.println("1) Ajouter une route");
-            System.out.println("2) Terminer la configuration");
-            System.out.print("Choix : ");
-            int choix = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choix) {
-                case 1:
-                    ajouterRoute();
-                    break;
-                case 2:
-                    configTerminee = true;
-                    break;
-                default:
-                    System.out.println("Choix invalide, veuillez choisir une option valide.");
-            }
-        }
-    }
 
     private static void ajouterRoute() {
         System.out.print("Ville de départ : ");
