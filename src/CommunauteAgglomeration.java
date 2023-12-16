@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +13,6 @@ class CommunauteAgglomeration {
     private final List<Route> routes; // liste des routes entre les villes
     private final Map<String, Ville> nomVilleAssociation; // association entre les noms de ville et les instances
 
-    // representation par liste d'arêtes, convenable pour des graphes de taille correct, mais pas pour de grands graphes 
-    // todo : demander au prof si c'est un bon choix ou bien faut penser à une autre structure ? 
 
     public CommunauteAgglomeration() {
         villes = new ArrayList<>();
@@ -109,5 +109,45 @@ class CommunauteAgglomeration {
             System.out.println("-------------------------------------------------\n");
         }
     }
+    public boolean estSolutionValide() {
+        for (Ville ville : this.getVilles()) {
+            if (!ville.possedeBorneRecharge() && !estRelieeAVilleAvecBorne(ville)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    public boolean estRelieeAVilleAvecBorne(Ville ville) {
+        for (Route route : this.getRoutes()) {
+            Ville villeA = route.getVilleA();
+            Ville villeB = route.getVilleB();
+            if ((ville.equals(villeA) && villeB.possedeBorneRecharge()) || 
+                (ville.equals(villeB) && villeA.possedeBorneRecharge())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+     /**
+     * Affiche les informations détaillées sur la communauté d'agglomération.
+     */
+    public static void afficherInformationsCommunaute(CommunauteAgglomeration communaute) {
+        System.out.println("Informations sur la communauté d'agglomération:");
+
+        System.out.println("\nListe des villes:");
+        for (Ville ville : communaute.getVilles()) {
+            System.out.println("- " + ville.getNom() + (ville.possedeBorneRecharge() ? " (avec borne de recharge)" : ""));
+        }
+
+        System.out.println("\nListe des routes:");
+        for (Route route : communaute.getRoutes()) {
+            System.out.println("- Route entre " + route.getVilleA().getNom() + " et " + route.getVilleB().getNom());
+        }
+
+        //System.out.println("\nVilles avec zone de recharge:");
+        communaute.afficherVillesAvecZoneDeRecharge();
+    }
 }
