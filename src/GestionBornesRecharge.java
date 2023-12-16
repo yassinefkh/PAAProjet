@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,36 +30,43 @@ public class GestionBornesRecharge {
             return false;
         }
     
-        // Vérifie si la ville est isolée (non reliée à aucune autre ville)
-        boolean estIsolée = true;
-        for (Route route : communaute.getRoutes()) {
-            Ville villeA = route.getVilleA();
-            Ville villeB = route.getVilleB();
+        Set<Ville> villesConnectees = new HashSet<>();
+        
+        villesConnectees.add(ville);
+        
+        List<Ville> villesAExplorer = new ArrayList<>(villesConnectees);
+        
+        while (!villesAExplorer.isEmpty()) {
+            Ville villeCourante = villesAExplorer.remove(0);
+            
+            for (Route route : communaute.getRoutes()) {
+                Ville villeA = route.getVilleA();
+                Ville villeB = route.getVilleB();
     
-            if ((ville.equals(villeA) || ville.equals(villeB)) && (villeA.possedeBorneRecharge() || villeB.possedeBorneRecharge())) {
-                estIsolée = false;
-                break;
+                if (villeA.equals(villeCourante) && !villesConnectees.contains(villeB) && villeB.possedeBorneRecharge()) {
+                    villesConnectees.add(villeB);
+                    villesAExplorer.add(villeB);
+                }
+                if (villeB.equals(villeCourante) && !villesConnectees.contains(villeA) && villeA.possedeBorneRecharge()) {
+                    villesConnectees.add(villeA);
+                    villesAExplorer.add(villeA);
+                }
             }
         }
 
-        if (estIsolée) {
-            return false;
-        }
-    
         for (Route route : communaute.getRoutes()) {
             Ville villeA = route.getVilleA();
             Ville villeB = route.getVilleB();
     
-            if ((ville.equals(villeA) && !villeB.possedeBorneRecharge()
-                    && !estRelieeAVilleAvecBorne(villeB, ville, communaute)) ||
-                    (ville.equals(villeB) && !villeA.possedeBorneRecharge()
-                            && !estRelieeAVilleAvecBorne(villeA, ville, communaute))) {
-                return false; // La ville n'est pas la seule source de recharge pour une autre ville
+            if ((ville.equals(villeA) && villesConnectees.contains(villeB)) ||
+                (ville.equals(villeB) && villesConnectees.contains(villeA))) {
+                return true; 
             }
         }
     
-        return true;
+        return false; 
     }
+    
     
 
       private static boolean estRelieeAVilleAvecBorne(Ville ville, Ville villeException, CommunauteAgglomeration communaute) {
