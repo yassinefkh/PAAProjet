@@ -1,3 +1,5 @@
+
+
 /**
  * Classe représentant une ville dans une communauté d'agglomération.
  * Chaque ville peut posséder ou non une borne de recharge.

@@ -1,6 +1,11 @@
+
+
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Set;
+
+
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -44,7 +49,7 @@ public class Main {
                     resoudreAutomatiquement();
                     break;
                 case 3:
-                    sauvegarderSolution();
+                   // sauvegarderSolution();
                     break;
                 case 4:
                     System.out.println("Fin du programme.");
