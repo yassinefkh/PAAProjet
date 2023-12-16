@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,19 +11,18 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-public class ChargerCommunauteDepuisFichier {
+public class ChargerCommunaute {
 
     private CommunauteAgglomeration communaute;
 
-     /**
-     * Constructeur de la classe ChargerCommunauteDepuisFichier.
+    /**
+     * Constructeur de la classe ChargerCommunaute.
      * Charge la communauté d'agglomération depuis un fichier donné.
      *
      * @param cheminFichier Le chemin du fichier contenant les informations sur la communauté d'agglomération.
      * @throws IOException En cas d'erreur de lecture du fichier.
      */
-    public ChargerCommunauteDepuisFichier(String cheminFichier) throws IOException {
+    public ChargerCommunaute(String cheminFichier) throws IOException {
         this.communaute = new CommunauteAgglomeration();
         chargerDepuisFichier(cheminFichier);
     }
@@ -37,12 +34,14 @@ public class ChargerCommunauteDepuisFichier {
      * @throws IOException En cas d'erreur de lecture du fichier.
      */
     private void chargerDepuisFichier(String cheminFichier) throws IOException {
+        // Patterns pour extraire les informations de chaque ligne
         Pattern patternVille = Pattern.compile("ville\\((.*?)\\)\\.");
         Pattern patternRoute = Pattern.compile("route\\((.*?),(.*?)\\)\\.");
         Pattern patternRecharge = Pattern.compile("recharge\\((.*?)\\)\\.");
 
-        Set<String> villesExistantes = new HashSet<>(); // Pour vérifier l'unicité des villes
-        Set<String> routesExistantes = new HashSet<>(); // Pour vérifier l'unicité des routes
+        // Pour vérifier l'unicité des villes et des routes
+        Set<String> villesExistantes = new HashSet<>();
+        Set<String> routesExistantes = new HashSet<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(cheminFichier))) {
             String ligne;
@@ -52,6 +51,7 @@ public class ChargerCommunauteDepuisFichier {
                 Matcher matcherRecharge = patternRecharge.matcher(ligne);
 
                 if (matcherVille.find()) {
+                    // Si la ligne contient une définition de ville
                     String nomVille = matcherVille.group(1);
                     if (!villesExistantes.contains(nomVille)) {
                         communaute.ajouterVille(new Ville(nomVille));
@@ -60,6 +60,7 @@ public class ChargerCommunauteDepuisFichier {
                         throw new VilleDupliqueeException("Erreur : La ville " + nomVille + " est définie plus d'une fois.");
                     }
                 } else if (matcherRoute.find()) {
+                    // Si la ligne contient une définition de route
                     String villeA = matcherRoute.group(1);
                     String villeB = matcherRoute.group(2);
                     if (villesExistantes.contains(villeA) && villesExistantes.contains(villeB)) {
@@ -73,8 +74,9 @@ public class ChargerCommunauteDepuisFichier {
                     } else {
                         throw new VilleInexistanteException("Erreur : Les villes " + villeA + " ou " + villeB + " n'existent pas.");
                     }
-    
+
                 } else if (matcherRecharge.find()) {
+                    // Si la ligne contient une définition de recharge
                     String villeRecharge = matcherRecharge.group(1);
                     Ville ville = communaute.getVilleParNom(villeRecharge);
                     if (ville != null) {
@@ -83,7 +85,7 @@ public class ChargerCommunauteDepuisFichier {
                         throw new VilleRechargeInexistanteException("Erreur : La ville " + villeRecharge + " pour la zone de recharge n'existe pas.");
                     }
                 } else {
-                   
+              
                 }
             }
         } catch (IOException e) {
@@ -91,8 +93,6 @@ public class ChargerCommunauteDepuisFichier {
             throw new RuntimeException("Erreur lors de la lecture du fichier : " + e.getMessage());
         }
     }
-
-   
 
     /**
      * Récupère la communauté d'agglomération chargée depuis le fichier.
