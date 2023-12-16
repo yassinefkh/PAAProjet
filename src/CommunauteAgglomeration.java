@@ -116,6 +116,11 @@ class CommunauteAgglomeration {
         }
     }
 
+    /**
+    * Vérifie si la solution actuelle est valide.
+    *
+    * @return true si la solution est valide, sinon false.
+    */
     public boolean estSolutionValide() {
         for (Ville ville : this.getVilles()) {
             if (!ville.possedeBorneRecharge() && !estRelieeAVilleAvecBorne(ville)) {
@@ -125,11 +130,17 @@ class CommunauteAgglomeration {
         return true;
     }
 
+    /**
+    * Vérifie si une ville donnée est reliée à une autre ville avec une borne de recharge.
+    *
+    * @param ville La ville à vérifier.
+    * @return true si la ville est reliée à une autre ville avec une borne de recharge, sinon false.
+    */
     public boolean estRelieeAVilleAvecBorne(Ville ville) {
         for (Route route : this.getRoutes()) {
             Ville villeA = route.getVilleA();
             Ville villeB = route.getVilleB();
-            if ((ville.equals(villeA) && villeB.possedeBorneRecharge()) || 
+            if ((ville.equals(villeA) && villeB.possedeBorneRecharge()) ||
                 (ville.equals(villeB) && villeA.possedeBorneRecharge())) {
                 return true;
             }
