@@ -20,7 +20,7 @@ public class Main {
         }
         String cheminFichier = args[0];
         try {
-            ChargerCommunauteDepuisFichier chargeur = new ChargerCommunauteDepuisFichier(cheminFichier);
+            ChargerCommunaute chargeur = new ChargerCommunaute(cheminFichier);
             communaute = chargeur.getCommunaute();
         } catch (VilleDupliqueeException | RouteDupliqueeException | VilleInexistanteException | VilleRechargeInexistanteException e) {
             System.out.println(e.getMessage());
