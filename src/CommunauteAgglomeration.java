@@ -171,5 +171,14 @@ class CommunauteAgglomeration {
         System.out.println("\n----------------------------------------------\n");
     }
     
-    
+     /**
+     * Retire la borne de recharge de la ville spécifiée.
+     *
+     * @param ville La ville de laquelle retirer la borne de recharge.
+     */
+    public void retirerBorneRecharge(Ville ville) {
+        if (villes.contains(ville)) {
+            ville.retirerBorneRecharge();
+        }
+    }
 }

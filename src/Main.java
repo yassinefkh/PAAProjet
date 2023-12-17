@@ -70,9 +70,36 @@ public class Main {
 
     private static void resoudreAutomatiquement() {
         appliquerSolutionNaive(communaute);
-        OptimisationBorne.algorithmeOpti(communaute, communaute.getVilles().size() * 200);
+        OptimisationBorne.algorithmeApproximation(communaute, communaute.getVilles().size() * 2);
+        //OptimisationBorne.alomVertexCover(communaute);
         CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
     }
+
+/* 
+    private static void resoudreAutomatiquement() {
+        System.out.println("Choisissez l'algorithme :");
+        System.out.println("1) Algorithme 2 Moins Naif");
+        System.out.println("2) Algorithme ++");
+        System.out.print("Votre choix : ");
+        
+        int choixAlgo = scanner.nextInt();
+        
+        switch (choixAlgo) {
+            case 1:
+                OptimisationBorne.algorithmeApproximation(communaute, communaute.getVilles().size() * 2);
+                break;
+            case 2:
+                OptimisationBorne.alomVertexCover(communaute);
+                break;
+            default:
+                System.out.println("Choix invalide, veuillez réessayer.");
+                return;
+        }
+        
+        CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
+    }
+     */
+    
 
     
 
