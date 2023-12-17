@@ -15,7 +15,7 @@ public class OptimisationBorne {
      *
      * Explication algo : Approche aléatoier, il y a une tentative d'optimisation (pas totalement naif donc) mais
      * peut ne pas etre très efficace ou rapide pour de grands graphes notamment avec bcp de cliques.
-     * 
+     * Cet algo ne va jamais donner toujours la même solution, qui ne sera pas toujours optimale.
      * @param CA La communauté d'agglomération à améliorer.
      * @param k  Le nombre d'itérations pour l'amélioration.
      */
@@ -87,6 +87,7 @@ public class OptimisationBorne {
      * en se concentrant sur les villes les plus stratégiquement importantes.
      * Methode efficace pour trouevr d'assez bonnes solutions dans des graphes ou il a une forte présence 
      * de clique.
+     * Trouve toujours la solution presque optimale pour un même graphe.
      */
     public static void alomVertexCover(CommunauteAgglomeration communaute) {
         initialiserCommunauteSansBornes(communaute); 
