@@ -13,11 +13,14 @@ import src.up.mi.yfh.loader.*;
 import java.util.InputMismatchException;
 import java.io.File;
 
+/**
+ * Classe principale Main
+ */
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static CommunauteAgglomeration communaute = new CommunauteAgglomeration();
     private static String cheminFichier;
-    
+
     public static void main(String[] args) {
         if (args.length < 1) {
             System.out.println("Usage: java Main <chemin_du_fichier>");
@@ -27,9 +30,10 @@ public class Main {
         try {
             ChargerCommunauteDepuisFichier chargeur = new ChargerCommunauteDepuisFichier(cheminFichier);
             communaute = chargeur.getCommunaute();
-        } catch ( VilleDupliqueeException | RouteDupliqueeException | VilleInexistanteException |  VilleRechargeInexistante  e) {
+        } catch (VilleDupliqueeException | RouteDupliqueeException | VilleInexistanteException
+                | VilleRechargeInexistante e) {
             System.out.println(e.getMessage());
-            return; 
+            return;
         } catch (IOException e) {
             System.out.println("Erreur lors du chargement du fichier de communauté.");
             e.printStackTrace();
@@ -40,7 +44,7 @@ public class Main {
         do {
             afficherMenuPrincipal();
             try {
-            	choix = scanner.nextInt();
+                choix = scanner.nextInt();
 
                 switch (choix) {
                     case 1:
@@ -50,12 +54,13 @@ public class Main {
                         resoudreAutomatiquement();
                         break;
                     case 3:
-                    	sauvegarderSolution();
-                    	// apres l'appel de sauvegarderSolution, affichez l'état de chaque ville
-                    	System.out.println("État actuel des villes après la sauvegarde :");
-                    	for (Ville ville : communaute.getVilles()) {
-                    	    System.out.println(ville.getNom() + ": " + (ville.possedeBorneRecharge() ? "avec borne" : "sans borne"));
-                    	}
+                        sauvegarderSolution();
+                        // apres l'appel de sauvegarderSolution, affichez l'état de chaque ville
+                        System.out.println("État actuel des villes après la sauvegarde :");
+                        for (Ville ville : communaute.getVilles()) {
+                            System.out.println(ville.getNom() + ": "
+                                    + (ville.possedeBorneRecharge() ? "avec borne" : "sans borne"));
+                        }
                         break;
                     case 4:
                         System.out.println("Fin du programme.");
@@ -65,12 +70,18 @@ public class Main {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Veuillez entrer un nombre valide.");
-                scanner.nextLine(); 
+                scanner.nextLine();
             }
         } while (choix != 4);
         scanner.close();
-    }  
-    
+    }
+
+    /**
+     * Affiche le menu principal de l'application.
+     * Ce menu permet à l'utilisateur de choisir parmi différentes options.
+     * Les options incluent la résolution manuelle, la résolution automatique,
+     * la sauvegarde et la sortie de l'application.
+     */
     private static void afficherMenuPrincipal() {
         System.out.println("======================================");
         System.out.println("           Menu Principal");
@@ -84,7 +95,7 @@ public class Main {
 
     private static void resoudreAutomatiquement() {
         boolean gestionTerminee = false;
-    
+
         while (!gestionTerminee) {
             System.out.println("\n*************************************************");
             System.out.println("     Menu de Résolution Automatique");
@@ -94,7 +105,7 @@ public class Main {
             System.out.println("2) Algorithme Personnalisé");
             System.out.println("3) Retourner au menu principal");
             System.out.print("Votre choix : ");
-    
+
             try {
                 int choix = scanner.nextInt();
                 scanner.nextLine();
@@ -122,11 +133,21 @@ public class Main {
                 scanner.nextLine();
             }
         }
-    
+
         CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
     }
-    
 
+    /**
+     * Permet à l'utilisateur de choisir et d'exécuter des algorithmes de résolution
+     * automatique.
+     * Cette méthode affiche un menu pour sélectionner parmi les algorithmes
+     * disponibles
+     * (algorithme d'approximation et algorithme personnalisé) ou revenir au menu
+     * principal.
+     * Elle exécute ensuite l'algorithme choisi sur la communauté d'agglomération.
+     * Une fois l'algorithme terminé, les informations de la communauté sont
+     * affichées.
+     */
     private static void resoudreManuellement() {
         // Vérifier si la solution actuelle est valide ou non
         if (!estSolutionValide(communaute)) {
@@ -147,7 +168,7 @@ public class Main {
 
             try {
                 int choix = scanner.nextInt();
-                scanner.nextLine(); 
+                scanner.nextLine();
 
                 switch (choix) {
                     case 1:
@@ -164,20 +185,22 @@ public class Main {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrée invalide. Veuillez entrer un nombre.");
-                scanner.nextLine(); 
+                scanner.nextLine();
             }
         }
     }
 
-
     /**
-     * Applique une solution naïve en ajoutant une borne de recharge à chaque ville de la communauté
+     * Applique une solution naïve en ajoutant une borne de recharge à chaque ville
+     * de la communauté
      * d'agglomération qui n'en possède pas déjà.
      *
-     * Cette méthode parcourt toutes les villes de la communauté d'agglomération et ajoute une borne
+     * Cette méthode parcourt toutes les villes de la communauté d'agglomération et
+     * ajoute une borne
      * de recharge à chaque ville qui n'en possède pas.
      *
-     * @param communaute La communauté d'agglomération à laquelle appliquer la solution naïve.
+     * @param communaute La communauté d'agglomération à laquelle appliquer la
+     *                   solution naïve.
      */
     private static void appliquerSolutionNaive(CommunauteAgglomeration communaute) {
         for (Ville ville : communaute.getVilles()) {
@@ -186,12 +209,15 @@ public class Main {
             }
         }
     }
-    
+
     /**
-     * Vérifie si la solution actuelle de la communauté d'agglomération est valide en respectant les contraintes d'accessibilité.
+     * Vérifie si la solution actuelle de la communauté d'agglomération est valide
+     * en respectant les contraintes d'accessibilité.
      *
-     * Cette méthode parcourt toutes les villes de la communauté d'agglomération et vérifie si elles respectent la contrainte
-     * d'accessibilité. Une ville est considérée valide si elle possède une borne de recharge ou si elle est reliée à une ville
+     * Cette méthode parcourt toutes les villes de la communauté d'agglomération et
+     * vérifie si elles respectent la contrainte
+     * d'accessibilité. Une ville est considérée valide si elle possède une borne de
+     * recharge ou si elle est reliée à une ville
      * qui en possède une.
      *
      * @param communaute La communauté d'agglomération à vérifier.
@@ -201,7 +227,8 @@ public class Main {
         for (Ville ville : communaute.getVilles()) {
             // Vérifier si la ville possède une borne de recharge
             if (!ville.possedeBorneRecharge()) {
-                // Si la ville n'a pas de borne de recharge, vérifier si elle est reliée à une ville qui en a une
+                // Si la ville n'a pas de borne de recharge, vérifier si elle est reliée à une
+                // ville qui en a une
                 if (!estRelieeAVilleAvecBorne(ville, communaute)) {
                     return false; // Retourner false si une ville ne respecte pas la contrainte d'accessibilité
                 }
@@ -209,41 +236,53 @@ public class Main {
         }
         return true; // Toutes les villes respectent la contrainte
     }
-    
-    
+
     /**
-     * Vérifie si une ville donnée est reliée à une autre ville qui possède une borne de recharge.
+     * Vérifie si une ville donnée est reliée à une autre ville qui possède une
+     * borne de recharge.
      *
-     * Cette méthode parcourt les routes de la communauté d'agglomération pour vérifier si la ville spécifiée
-     * est reliée à une autre ville qui possède une borne de recharge. Elle permet de vérifier si une ville peut
+     * Cette méthode parcourt les routes de la communauté d'agglomération pour
+     * vérifier si la ville spécifiée
+     * est reliée à une autre ville qui possède une borne de recharge. Elle permet
+     * de vérifier si une ville peut
      * être considérée comme valide en respectant la contrainte d'accessibilité.
      *
      * @param ville      La ville à vérifier.
-     * @param communaute La communauté d'agglomération contenant les routes et les autres villes.
-     * @return True si la ville est reliée à une autre ville avec une borne de recharge, False sinon.
+     * @param communaute La communauté d'agglomération contenant les routes et les
+     *                   autres villes.
+     * @return True si la ville est reliée à une autre ville avec une borne de
+     *         recharge, False sinon.
      */
     private static boolean estRelieeAVilleAvecBorne(Ville ville, CommunauteAgglomeration communaute) {
         for (Route route : communaute.getRoutes()) {
             Ville villeA = route.getVilleA();
             Ville villeB = route.getVilleB();
-    
+
             // Vérifier si l'une des villes reliées possède une borne de recharge
-            if ((ville.equals(villeA) && villeB.possedeBorneRecharge()) || 
-                (ville.equals(villeB) && villeA.possedeBorneRecharge())) {
+            if ((ville.equals(villeA) && villeB.possedeBorneRecharge()) ||
+                    (ville.equals(villeB) && villeA.possedeBorneRecharge())) {
                 return true;
             }
         }
         return false;
     }
-    
 
-
+    /**
+     * Permet à l'utilisateur d'ajouter une zone de recharge à une ville de la
+     * communauté.
+     * Cette méthode demande à l'utilisateur de saisir le nom de la ville à laquelle
+     * ajouter la zone de recharge.
+     * Si la ville existe dans la communauté et n'a pas déjà une borne de recharge,
+     * une zone de recharge est ajoutée à la ville.
+     * Sinon, un message d'erreur est affiché pour indiquer que l'ajout n'est pas
+     * possible.
+     */
     private static void ajouterZoneDeRecharge() {
         System.out.print("Nom de la ville où ajouter une zone de recharge : ");
         String nomVilleAjout = scanner.nextLine();
-        
+
         Ville villeAjout = communaute.getVilleParNom(nomVilleAjout);
-        
+
         if (villeAjout != null) {
             if (!villeAjout.possedeBorneRecharge()) {
                 villeAjout.ajouterBorneRecharge();
@@ -256,6 +295,16 @@ public class Main {
         }
     }
 
+    /**
+     * Permet à l'utilisateur de retirer une zone de recharge d'une ville de la
+     * communauté.
+     * Cette méthode demande à l'utilisateur de saisir le nom de la ville à laquelle
+     * retirer la zone de recharge.
+     * Si la ville existe dans la communauté et le retrait de la zone de recharge
+     * est autorisé selon les règles d'accessibilité,
+     * la zone de recharge est retirée de la ville. Sinon, un message d'erreur est
+     * affiché pour indiquer que le retrait est refusé.
+     */
     private static void retirerZoneDeRecharge() {
         System.out.print("Nom de la ville où retirer une zone de recharge : ");
         String nomVilleRetrait = scanner.nextLine();
@@ -266,23 +315,30 @@ public class Main {
                 villeRetrait.retirerBorneRecharge();
                 System.out.println("Zone de recharge retirée de la ville " + nomVilleRetrait + ".");
             } else {
-                System.out.println("\n\033[31m[Erreur] Retrait de la zone de recharge refusé : Violation des règles d'accessibilité.\033[0m");
+                System.out.println(
+                        "\n\033[31m[Erreur] Retrait de la zone de recharge refusé : Violation des règles d'accessibilité.\033[0m");
             }
         } else {
             System.out.println("Ville non trouvée, vérifiez le nom.");
         }
     }
-    
+
+    /**
+     * Permet à l'utilisateur de sauvegarder la solution actuelle dans un fichier
+     * spécifié.
+     * Cette méthode demande à l'utilisateur de fournir le chemin du fichier de
+     * sauvegarde.
+     */
     private static void sauvegarderSolution() {
         System.out.print("Veuillez entrer le chemin du fichier de sauvegarde : ");
-        scanner.nextLine(); 
+        scanner.nextLine();
         String cheminSauvegarde = scanner.nextLine();
 
         // Vérification du chemin et des permissions
         File fichierSauvegarde = new File(cheminSauvegarde);
         if (!fichierSauvegarde.exists() || !fichierSauvegarde.canWrite()) {
             System.out.println("Vous n'avez pas la permission d'écrire dans ce fichier ou le chemin est invalide.");
-            return; 
+            return;
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(cheminSauvegarde))) {
@@ -312,5 +368,4 @@ public class Main {
         }
     }
 
-
-}   
+}

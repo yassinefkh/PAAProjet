@@ -1,7 +1,8 @@
 package src.up.mi.yfh.exception;
 
 /**
- * Cette classe représente une exception personnalisée pour les villes dupliquées.
+ * Cette classe représente une exception personnalisée pour les villes
+ * dupliquées.
  */
 public class VilleDupliqueeException extends RuntimeException {
 

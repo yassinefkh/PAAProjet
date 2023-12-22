@@ -11,9 +11,9 @@ La communauté est représentée par un graphe non-orienté, où les nœuds sont
 
 ## Structure
 
-Le fichier principal se trouve dans : `/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/yfh/Main.java`
+Le **fichier principal Main** se trouve dans : `/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/yfh/Main.java`
 
-Le fichier texte qui contient les informations sur les villes, les routes, etc. se trouve dans : `/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/target`
+Le **fichier texte** qui contient les informations sur les villes, les routes, etc. se trouve dans : `/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/target`
 ou bien dans `/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/yfh/loader/communaute.txt` si jamais ce fichier disparaît suite à une commande mvn.
 
 ## Fonctionnalités

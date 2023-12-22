@@ -1,7 +1,8 @@
 package src.up.mi.yfh.exception;
 
 /**
- * Cette classe représente une exception personnalisée pour les villes de recharge inexistantes.
+ * Cette classe représente une exception personnalisée pour les villes de
+ * recharge inexistantes.
  */
 public class VilleRechargeInexistante extends RuntimeException {
 

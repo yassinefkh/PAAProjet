@@ -1,7 +1,8 @@
 package src.up.mi.yfh.exception;
 
 /**
- * Cette classe représente une exception personnalisée pour les routes dupliquées.
+ * Cette classe représente une exception personnalisée pour les routes
+ * dupliquées.
  */
 public class RouteDupliqueeException extends RuntimeException {
 

@@ -73,14 +73,16 @@ public class CommunauteAgglomeration {
      * Récupère une instance de la classe Ville associée à un nom donné.
      *
      * @param nom Le nom de la ville que vous souhaitez récupérer.
-     * @return Une instance de la classe Ville correspondant au nom spécifié, ou null si aucune ville n'est associée à ce nom.
+     * @return Une instance de la classe Ville correspondant au nom spécifié, ou
+     *         null si aucune ville n'est associée à ce nom.
      */
     public Ville getVilleParNom(String nom) {
         return nomVilleAssociation.get(nom);
     }
 
     /**
-     * Ajoute une association entre un nom de ville et une instance de la classe Ville.
+     * Ajoute une association entre un nom de ville et une instance de la classe
+     * Ville.
      *
      * @param nom   Le nom de la ville à associer.
      * @param ville L'instance de la classe Ville à associer au nom spécifié.

@@ -1,6 +1,5 @@
 package src.up.mi.yfh.agglomeration;
 
-
 /**
  * Classe représentant une ville dans une communauté d'agglomération.
  * Chaque ville peut posséder ou non une borne de recharge.
@@ -20,7 +19,6 @@ public class Ville {
         this.possedeBorneRecharge = false; // une ville ne possède pas de borne de recharge par défaut
     }
 
-    
     /**
      * Obtient le nom de la ville.
      *
