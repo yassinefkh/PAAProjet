@@ -14,6 +14,7 @@ Dans notre programme, nous pouvons correctement :
   - Solution manuelle : on peut retirer nous-mêmes les bornes ou en ajouter.
   - Solution automatique : exécution de l'algorithme d'optimisation, soit le deuxième du sujet ou un autre que nous avons implémenté.
 - Visualisation textuelle des informations concernant la communauté d'agglomération.
+- Possiblité de visualiser le site de la Javadoc générée.
 
 ////// Fonctionnalités implémentées mais ... //////
 Nous avons essayé d'implémenter un algorithme d'approximation, meilleur que celui du sujet qui est basé sur de l'aléatoire. Mais il existe sûrement un algorithme qui donne une solution optimale malgré que ce soit un problème NP-Complet (ressemble au Vertex Cover Problem).

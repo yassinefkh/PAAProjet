@@ -28,6 +28,7 @@ Dans notre programme, nous pouvons correctement :
   - Solution automatique : exécution de l'algorithme d'optimisation, soit le deuxième du sujet ou un autre que nous avons implémenté.
 
 - Visualisation textuelle des informations concernant la communauté d'agglomération.
+- Possiblité de visualiser le site de la Javadoc générée.
 
 ### Fonctionnalités implémentées mais ...
 
