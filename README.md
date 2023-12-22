@@ -5,8 +5,8 @@
 
 # Structure
 
-Le Main se trouve dans : /PAAProjet_FEKIHHASSEN_Yassine_KADIC_Anais/src/main/java/src/up/mi/yfh/main/Main.java
-Le fichier txt qui contient les informations sur les villes, routes etc.. se trouve dans : PAAProjet_FEKIHHASSEN_Yassine_KADIC_Anais/src/main/java/src/up/mi/yfh/loader
+Le Main se trouve dans : ```/PAAProjet_FEKIHHASSEN_Yassine_KADIC_Anais/src/main/java/src/up/mi/yfh/main/Main.java```
+Le fichier txt qui contient les informations sur les villes, routes etc.. se trouve dans : ```PAAProjet_FEKIHHASSEN_Yassine_KADIC_Anais/src/main/java/src/up/mi/yfh/loader```
 
 # Fonctionnalités 
 
