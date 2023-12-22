@@ -1,5 +1,0 @@
-vérifier methodes dans le main, y'en a trop et on peut supprimer estSolutionValide() car on a deja estSolutionValide(CA)
-méthode sauvegarde a mettre dans une classe à part
-
-
-java -jar .....

@@ -1,3 +1,7 @@
+# REMARQUE
+Ce readme est fichier markdown pour GitHub, il s'affiche donc correctement sur github : 
+
+
 # Projet de Programmation Java OOP, L3 Université Paris-Cité
 
 Ce projet a pour but de créer un programme Java qui simule une communauté d'agglomération afin d'optimiser l'installation de bornes de recharges.
