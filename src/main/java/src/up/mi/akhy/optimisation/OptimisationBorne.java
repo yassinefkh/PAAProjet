@@ -80,7 +80,7 @@ public class OptimisationBorne {
     /**
      * Cet algorithme utilise une approche heuristique pour selectionner les villes
      * Il selectionne les villes en fonction du nombre de leur couvertures maximal qu'elles
-     * peuvent fournir, c-a-d on tente de minimiser le nombre de bornes de rehcagres necessaires 
+     * peuvent fournir, c-a-d on tente de minimiser le nombre de bornes de recharges necessaires 
      * en se concentrant sur les villes les plus stratégiquement importantes.
      * Methode efficace pour trouevr d'assez bonnes solutions dans des graphes ou il a une forte présence 
      * de clique.
@@ -88,12 +88,20 @@ public class OptimisationBorne {
      * @param communaute La communauté d'agglomération à traiter.
      */
     public static void algorithmeCouverture(CommunauteAgglomeration communaute) {
-        initialiserCommunauteSansBornes(communaute); 
+    	// Initialise la communauté en retirant toutes les bornes de recharge
+        initialiserCommunauteSansBornes(communaute);
+        
+        // Crée un ensemble de villes non couvertes initialement avec toutes les villes de la communauté
         Set<Ville> villesNonCouvertes = new HashSet<>(communaute.getVilles());
 
+        // Continue tant qu'il reste des villes non couvertes
         while (!villesNonCouvertes.isEmpty()) {
+        	 // Sélectionne la meilleure ville à couvrir
             Ville selectedVertex = selectBestVertexToCover(communaute, villesNonCouvertes);
+            
+            // Si une ville à couvrir est trouvée
             if (selectedVertex != null) {
+            	 // Ajoute une borne de recharge à la ville sélectionnée
                 selectedVertex.ajouterBorneRecharge();
                 updateStatutVillesNonCouvertes(selectedVertex, villesNonCouvertes, communaute);
             }
@@ -128,10 +136,10 @@ public class OptimisationBorne {
          potentiel de couverture
          */
         for (Ville ville : villesNonCouvertes) {
-            int coverCount = compterCouverturePotentielle(ville, communaute);
-            if (coverCount > maxCover) {
+            int covercpt = compterCouverturePotentielle(ville, communaute);
+            if (covercpt > maxCover) {
                 bestVille = ville;
-                maxCover = coverCount;
+                maxCover = covercpt;
             }
         }
 
@@ -146,17 +154,17 @@ public class OptimisationBorne {
      * @return Le nombre de routes potentielles que la ville peut couvrir.
      */
     private static int compterCouverturePotentielle(Ville ville, CommunauteAgglomeration communaute) {
-        int count = 0;
+        int cpt = 0;
         for (Route route : communaute.getRoutes()) {
             Ville villeA = route.getVilleA();
             Ville villeB = route.getVilleB();
             if (ville.equals(villeA) && !villeB.possedeBorneRecharge()) {
-                count++;
+                cpt++;
             } else if (ville.equals(villeB) && !villeA.possedeBorneRecharge()) {
-                count++;
+                cpt++;
             }
         }
-        return count;
+        return cpt;
     }
 
 

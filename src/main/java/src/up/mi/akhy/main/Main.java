@@ -198,16 +198,23 @@ public class Main {
     
 
     private static void ajouterRoute() {
+    	// demande à l'utilisateur de saisir la ville de départ
         System.out.print("Ville de départ : ");
         String nomVilleA = scanner.nextLine();
+        
+        // demande à l'utilisateur de saisir la ville d'arrivée
         System.out.print("Ville d'arrivée : ");
         String nomVilleB = scanner.nextLine();
 
         Ville villeA = communaute.getVilleParNom(nomVilleA);
         Ville villeB = communaute.getVilleParNom(nomVilleB);
 
+        // Vérifie si les villes de départ et d'arrivée existent dans la communauté
         if (villeA != null && villeB != null) {
+        	 // Crée une nouvelle Route entre les deux villes
             Route route = new Route(villeA, villeB);
+            
+            // Ajoute la route à la communauté et vérifie si elle a été ajoutée avec succès
             boolean routeAjoutee = communaute.ajouterRoute(route);
             if (routeAjoutee) {
                 System.out.println("Route ajoutée entre " + nomVilleA + " et " + nomVilleB + ".");
@@ -254,7 +261,9 @@ public class Main {
     private static void ajouterZoneDeRecharge() {
         System.out.print("Nom de la ville où ajouter une zone de recharge : ");
         String nomVilleAjout = scanner.nextLine();
+        
         Ville villeAjout = communaute.getVilleParNom(nomVilleAjout);
+        
         if (villeAjout != null) {
             if (!villeAjout.possedeBorneRecharge()) {
                 villeAjout.ajouterBorneRecharge();
