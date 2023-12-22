@@ -32,7 +32,10 @@ Mais il existe sûrement un algorithme qui donne une solution optimale malgré q
 
 ### Exécution
 
-Pour exécuter le programme, vous pouvez utiliser la commande suivante :
+Pour exécuter le programme, vous pouvez utiliser la commande suivante (une fois dans le dossier **target**) :
+```bash 
+ /Volumes/SSD/PAA/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/akhy/loader/communaute.txt
+ ```
 
 
 ## Auteurs
