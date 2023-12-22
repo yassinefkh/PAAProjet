@@ -44,6 +44,7 @@ class CommunauteAgglomeration {
             return false;
         }
     }
+    
 
     /**
      * Obtient la liste des villes dans la communauté

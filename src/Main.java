@@ -1,11 +1,5 @@
 import java.util.Scanner;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.File;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 
 
 public class Main {
@@ -68,45 +62,17 @@ public class Main {
         System.out.print("Entrez votre choix : ");
     }
 
+
     private static void resoudreAutomatiquement() {
         appliquerSolutionNaive(communaute);
-        OptimisationBorne.algorithmeApproximation(communaute, communaute.getVilles().size() * 2);
-        //OptimisationBorne.alomVertexCover(communaute);
+        //OptimisationBorne.algorithmeApproximation(communaute, communaute.getVilles().size());
+        OptimisationBorne.algorithmeCouverture(communaute);
         CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
     }
-
-/* 
-    private static void resoudreAutomatiquement() {
-        System.out.println("Choisissez l'algorithme :");
-        System.out.println("1) Algorithme 2 Moins Naif");
-        System.out.println("2) Algorithme ++");
-        System.out.print("Votre choix : ");
-        
-        int choixAlgo = scanner.nextInt();
-        
-        switch (choixAlgo) {
-            case 1:
-                OptimisationBorne.algorithmeApproximation(communaute, communaute.getVilles().size() * 2);
-                break;
-            case 2:
-                OptimisationBorne.alomVertexCover(communaute);
-                break;
-            default:
-                System.out.println("Choix invalide, veuillez réessayer.");
-                return;
-        }
-        
-        CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
-    }
-     */
-    
-
     
 
     private static void resoudreManuellement() {
-        // Vérifier si la solution actuelle est valide ou non
         if (!estSolutionValide(communaute)) {
-            // Si la solution n'est pas valide, appliquer la solution naïve
             appliquerSolutionNaive(communaute);
         }
     
@@ -119,7 +85,7 @@ public class Main {
             System.out.println("3) Retourner au menu principal");
             System.out.print("Votre choix : ");
             int choix = scanner.nextInt();
-            scanner.nextLine(); // Nettoyer le buffer
+            scanner.nextLine(); 
     
             switch (choix) {
                 case 1:
@@ -166,15 +132,13 @@ public class Main {
      */
     private static boolean estSolutionValide(CommunauteAgglomeration communaute) {
         for (Ville ville : communaute.getVilles()) {
-            // Vérifier si la ville possède une borne de recharge
             if (!ville.possedeBorneRecharge()) {
-                // Si la ville n'a pas de borne de recharge, vérifier si elle est reliée à une ville qui en a une
                 if (!estRelieeAVilleAvecBorne(ville, communaute)) {
-                    return false; // Retourner false si une ville ne respecte pas la contrainte d'accessibilité
+                    return false; 
                 }
             }
         }
-        return true; // Toutes les villes respectent la contrainte
+        return true; 
     }
     
     /**
@@ -193,7 +157,6 @@ public class Main {
             Ville villeA = route.getVilleA();
             Ville villeB = route.getVilleB();
     
-            // Vérifier si l'une des villes reliées possède une borne de recharge
             if ((ville.equals(villeA) && villeB.possedeBorneRecharge()) || 
                 (ville.equals(villeB) && villeA.possedeBorneRecharge())) {
                 return true;
@@ -203,59 +166,7 @@ public class Main {
     }
     
 
-    private static void ajouterRoute() {
-        System.out.print("Ville de départ : ");
-        String nomVilleA = scanner.nextLine();
-        System.out.print("Ville d'arrivée : ");
-        String nomVilleB = scanner.nextLine();
 
-        Ville villeA = communaute.getVilleParNom(nomVilleA);
-        Ville villeB = communaute.getVilleParNom(nomVilleB);
-
-        if (villeA != null && villeB != null) {
-            Route route = new Route(villeA, villeB);
-            boolean routeAjoutee = communaute.ajouterRoute(route);
-            if (routeAjoutee) {
-                System.out.println("Route ajoutée entre " + nomVilleA + " et " + nomVilleB + ".");
-            } else {
-                System.out.println("Cette route existe déjà entre " + nomVilleA + " et " + nomVilleB + ".");
-            }
-        } else {
-            System.out.println("Ville non trouvée, vérifiez les noms.");
-        }
-    }
-
-    private static void gererBornesRecharge() {
-        boolean solutionTrouvee = false;
-
-        while (!solutionTrouvee) {
-            System.out.println("\n================ Menu de Gestion des Bornes de Recharge ================");
-            communaute.afficherRoutes();
-            System.out.println("1) Ajouter une zone de recharge");
-            System.out.println("2) Retirer une zone de recharge");
-            System.out.println("3) Terminer la gestion");
-            System.out.println("---- Liste des villes avec des bornes de recharge ----");
-            System.out.println(GestionBornesRecharge.listeVillesAvecBornesRecharge(communaute));
-            System.out.println("-----------------------------------------------------");
-            System.out.print("Votre choix : ");
-            int choixGestion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choixGestion) {
-                case 1:
-                    ajouterZoneDeRecharge();
-                    break;
-                case 2:
-                    retirerZoneDeRecharge();
-                    break;
-                case 3:
-                    solutionTrouvee = true;
-                    break;
-                default:
-                    System.out.println("Choix invalide, veuillez choisir une option valide.");
-            }
-        }
-    }
 
     private static void ajouterZoneDeRecharge() {
         System.out.print("Nom de la ville où ajouter une zone de recharge : ");
