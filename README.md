@@ -15,7 +15,7 @@ Le fichier txt qui contient les informations sur les villes, routes etc.. se tro
 Dans notre programme, nous pouvons correctement : 
 *  Importer depuis un fichier texte une communauté d'agglomération, c'est-à-dire les **ajouts de villes** , de **routes** et de **recharge**.
 * Trouver une **solution manuellement** et **automatique** 
-> (solution manuelle : on retire nous même les bornes ou on en ajoute, solution automatique : exécution de l'algorithme d'optimisation, soit le deuxième du sujet ou bien un autre que nous avons implémenté)
+> solution manuelle : on retire nous même les bornes ou on en ajoute, solution automatique : exécution de l'algorithme d'optimisation, soit le deuxième du sujet ou bien un autre que nous avons implémenté
  
 
 
