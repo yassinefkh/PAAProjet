@@ -6,9 +6,9 @@ La communauté est représentée par un graphe non-orienté, où les nœuds sont
 
 ## Structure
 
-Le fichier principal se trouve dans : `/PAAProjet_FEKIHHASSEN_Yassine_KADIC_Anais/src/main/java/src/up/mi/yfh/main/Main.java`
+Le fichier principal se trouve dans : `/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/akhy/Main.java`
 
-Le fichier texte qui contient les informations sur les villes, les routes, etc. se trouve dans : `/PAAProjet_FEKIHHASSEN_Yassine_KADIC_Anais/src/main/java/src/up/mi/yfh/loader`
+Le fichier texte qui contient les informations sur les villes, les routes, etc. se trouve dans : `/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/akhy/loader`
 
 ## Fonctionnalités
 
@@ -34,7 +34,7 @@ Mais il existe sûrement un algorithme qui donne une solution optimale malgré q
 
 Pour exécuter le programme, vous pouvez utiliser la commande suivante (une fois dans le dossier **target**) :
 ```bash 
- /Volumes/SSD/PAA/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/akhy/loader/communaute.txt
+ /ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/akhy/loader/communaute.txt
  ```
 
 
