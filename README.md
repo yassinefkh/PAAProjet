@@ -13,7 +13,7 @@ La communauté est représentée par un graphe non-orienté, où les nœuds sont
 
 Le fichier principal se trouve dans : `/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/akhy/Main.java`
 
-Le fichier texte qui contient les informations sur les villes, les routes, etc. se trouve dans : `/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/akhy/loader`
+Le fichier texte qui contient les informations sur les villes, les routes, etc. se trouve dans : `/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/target`
 
 ## Fonctionnalités
 
