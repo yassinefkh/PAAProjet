@@ -97,7 +97,7 @@ public class Main {
 
         boolean gestionTerminee = false;
         while (!gestionTerminee) {
-            System.out.println("\n--- Menu de Gestion Manuelle des Bornes de Recharge ---");
+            System.out.println("\n--- MENU GESTION MANUELLE BORNES DE RECHARGE --- \n");
             CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
             System.out.println("1) Ajouter une zone de recharge");
             System.out.println("2) Retirer une zone de recharge");

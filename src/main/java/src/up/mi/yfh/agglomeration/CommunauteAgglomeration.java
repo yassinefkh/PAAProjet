@@ -68,7 +68,7 @@ public class CommunauteAgglomeration {
         int nombreDeVilles = villes.size();
         int nombreDeBornes = 0;
     
-        System.out.print("\nVilles avec zone de recharge : ");
+        System.out.print("\n ** Villes avec zone de recharge : ");
         for (Ville ville : villes) {
             if (ville.possedeBorneRecharge()) {
                 nombreDeBornes++;
@@ -77,7 +77,7 @@ public class CommunauteAgglomeration {
         }
     
         System.out.println();
-        System.out.println("Economie - Nombre de bornes : " + nombreDeBornes + "/" + nombreDeVilles);
+        System.out.println(" ** Economie - Nombre de bornes : " + nombreDeBornes + "/" + nombreDeVilles);
     }
     
     public void afficherRoutes() {
