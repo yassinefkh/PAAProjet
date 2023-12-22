@@ -3,8 +3,20 @@
 
 > La communauté est représentée par un graphe non-orienté, où les noeuds sont des villes et les arêtes des routes. Le programme permettra de configurer manuellement les zones de recharge, tout en respectant les contraintes d'accessibilité et d'économie. Des solutions optimales seront recherchées pour minimiser le nombre de zones de recharge nécessaires.
 
-# Execution du programme
-Dans le dossier /src : 
+# Structure
+
+Le Main se trouve dans : /PAAProjet_FEKIHHASSEN_Yassine_KADIC_Anais/src/main/java/src/up/mi/yfh/main/Main.java
+Le fichier txt qui contient les informations sur les villes, routes etc.. se trouve dans : PAAProjet_FEKIHHASSEN_Yassine_KADIC_Anais/src/main/java/src/up/mi/yfh/loader
+
+# Fonctionnalités 
+
+## Fonctionnalités correctement implémentées
+
+Dans notre programme, nous pouvons correctement : 
+Importer depuis un fichier texte une communauté d'agglomération, c'est-à-dire les ajouts de villes, de routes et de recharge.
+Depuis cette communauté d'agglomération, nous pouvons trouver une solution manuellement (en retirant nous même les bornes ou en ajoutant des bornes), mais également une solution automatique, c'est à dire en exécutant l'algorithme d'optimisation (le deuxième du sujet ou bien un autre que nous avons implémenté).
+
+
 
 ``` javac *.java && java main ``` 
 
