@@ -14,17 +14,32 @@ public class CommunauteAgglomeration {
     private final List<Route> routes; // liste des routes entre les villes
     private final Map<String, Ville> nomVilleAssociation; // association entre les noms de ville et les instances
 
+    /**
+     * Constructeur par défaut de la classe CommunauteAgglomeration.
+     * Initialise les listes de villes et de routes, ainsi que la map d'association des noms de villes.
+     */
     public CommunauteAgglomeration() {
         villes = new ArrayList<>();
         routes = new ArrayList<>();
         nomVilleAssociation = new HashMap<>();
     }
 
+    /**
+     * Ajoute une ville à la communauté d'agglomération.
+     *
+     * @param ville La ville à ajouter.
+     */
     public void ajouterVille(Ville ville) {
         villes.add(ville);
         nomVilleAssociation.put(ville.getNom(), ville);
     }
 
+    /**
+     * Ajoute une route à la communauté d'agglomération si elle n'existe pas déjà.
+     *
+     * @param route La route à ajouter.
+     * @return true si la route a été ajoutée avec succès, false si la route existe déjà.
+     */
     public boolean ajouterRoute(Route route) {
         if (!routes.contains(route)) {
             routes.add(route);
@@ -80,6 +95,9 @@ public class CommunauteAgglomeration {
         System.out.println(" ** Economie - Nombre de bornes : " + nombreDeBornes + "/" + nombreDeVilles);
     }
 
+    /**
+     * Methode d'affichage des routes
+     */
     public void afficherRoutes() {
         if (routes.isEmpty()) {
             System.out.println("Aucune route configurée actuellement.");
@@ -148,6 +166,11 @@ public class CommunauteAgglomeration {
         System.out.println("\n----------------------------------------------\n");
     }
 
+    /**
+     * Retire une borne de recharge de la ville spécifiée si elle appartient à la communauté d'agglomération.
+     *
+     * @param ville La ville de laquelle retirer la borne de recharge.
+     */
     public void retirerBorneRecharge(Ville ville) {
         if (villes.contains(ville)) {
             ville.retirerBorneRecharge();

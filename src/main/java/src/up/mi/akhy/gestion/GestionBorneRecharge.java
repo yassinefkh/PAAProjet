@@ -50,10 +50,11 @@ public class GestionBorneRecharge {
      */
 
     public static boolean peutRetirerBorneRecharge(Ville ville, CommunauteAgglomeration communaute) {
+    	
         if (!ville.possedeBorneRecharge()) {
             return false;
         }
-        // 1e test
+        // Premier test : vérification de la connectivité des villes sans borne
         List<Ville> villesConnectees = new ArrayList<>();
         for (Route route : communaute.getRoutes()) {
             if (route.getVilleA().equals(ville)) {
@@ -63,6 +64,7 @@ public class GestionBorneRecharge {
             }
         }
 
+        // Pour chaque ville sans borne, vérifie si elle est connectée à une ville avec une borne
         for (Ville villeConnectee : villesConnectees) {
             if (!villeConnectee.possedeBorneRecharge()
                     && !estRelieeAVilleAvecBorne(villeConnectee, ville, communaute)) {
@@ -70,13 +72,14 @@ public class GestionBorneRecharge {
             }
         }
 
-        // 2e test
+        // Deuxième test : vérification de la connectivité de toutes les villes avec borne
         Set<Ville> villesConnecte = new HashSet<>();
 
         villesConnecte.add(ville);
 
         List<Ville> villesAExplorer = new ArrayList<>(villesConnecte);
 
+        // Utilisation d'une recherche en largeur pour trouver toutes les villes connectées
         while (!villesAExplorer.isEmpty()) {
             Ville villeCourante = villesAExplorer.remove(0);
 
@@ -84,6 +87,7 @@ public class GestionBorneRecharge {
                 Ville villeA = route.getVilleA();
                 Ville villeB = route.getVilleB();
 
+                // Si une route relie la ville courante à une autre ville avec une borne, l'ajoute à la liste des villes connectées
                 if (villeA.equals(villeCourante) && !villesConnecte.contains(villeB) && villeB.possedeBorneRecharge()) {
                     villesConnecte.add(villeB);
                     villesAExplorer.add(villeB);
@@ -95,6 +99,7 @@ public class GestionBorneRecharge {
             }
         }
 
+        // Vérifie si la ville actuelle est connectée à au moins une autre ville avec borne
         for (Route route : communaute.getRoutes()) {
             Ville villeA = route.getVilleA();
             Ville villeB = route.getVilleB();
@@ -104,6 +109,7 @@ public class GestionBorneRecharge {
                 return true;
             }
         }
+        // Si aucune des conditions ci-dessus n'est remplie, on ne peut pas retirer la borne
         return false;
     }
 
@@ -120,18 +126,21 @@ public class GestionBorneRecharge {
      */
     private static boolean estRelieeAVilleAvecBorne(Ville ville, Ville villeException,
             CommunauteAgglomeration communaute) {
+    	 // Parcourt toutes les routes de la communauté d'agglomération
         for (Route route : communaute.getRoutes()) {
+        	  // Vérifie si la route relie la ville à une autre ville avec une borne, en évitant la ville d'exception
             if ((route.getVilleA().equals(ville) && !route.getVilleB().equals(villeException)
                     && route.getVilleB().possedeBorneRecharge()) ||
                     (route.getVilleB().equals(ville) && !route.getVilleA().equals(villeException)
                             && route.getVilleA().possedeBorneRecharge())) {
-                return true;
+                return true; // La ville est reliée à une ville avec une borne
             }
+            // Vérifie si la route relie la ville à une autre ville avec une borne, sans éviter la ville d'exception
             if (route.getVilleB().equals(ville) && !route.getVilleA().equals(villeException)
                     && route.getVilleA().possedeBorneRecharge()) {
-                return true;
+                return true; // La ville est reliée à une ville avec une borne
             }
         }
-        return false;
+        return false; // Si aucune route ne relie la ville à une autre ville avec une borne, retourne false
     }
 }

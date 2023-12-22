@@ -20,19 +20,35 @@ public class Ville {
         this.possedeBorneRecharge = true; // une ville ne possède pas de borne de recharge par défaut
     }
 
-    // getter
+    
+    /**
+     * Obtient le nom de la ville.
+     *
+     * @return Le nom de la ville.
+     */
     public String getNom() {
         return nom;
     }
 
+    /**
+     * Vérifie si la ville possède une borne de recharge.
+     *
+     * @return true si la ville possède une borne de recharge, false sinon.
+     */
     public boolean possedeBorneRecharge() {
         return possedeBorneRecharge;
     }
 
+    /**
+     * Ajoute une borne de recharge à la ville.
+     */
     public void ajouterBorneRecharge() {
         possedeBorneRecharge = true;
     }
 
+    /**
+     * Retire la borne de recharge de la ville.
+     */
     public void retirerBorneRecharge() {
         possedeBorneRecharge = false;
     }

@@ -65,7 +65,7 @@ public class Main {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Veuillez entrer un nombre valide.");
-                scanner.nextLine(); // Important pour nettoyer le buffer du scanner
+                scanner.nextLine(); /
             }
         } while (choix != 4);
         scanner.close();
@@ -107,7 +107,7 @@ public class Main {
 
             try {
                 int choix = scanner.nextInt();
-                scanner.nextLine(); // Nettoyer le buffer
+                scanner.nextLine(); 
 
                 switch (choix) {
                     case 1:
@@ -124,7 +124,7 @@ public class Main {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrée invalide. Veuillez entrer un nombre.");
-                scanner.nextLine(); // Nettoyer le buffer pour se débarrasser de l'entrée invalide
+                scanner.nextLine(); 
             }
         }
     }
