@@ -1,0 +1,12 @@
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/loader/ChargerCommunauteDepuisFichier.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/main/Main.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/exceptions/VIlleRechargeInexistante.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/agglomeration/CommunauteAgglomeration.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/agglomeration/Ville.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/gestion/GestionBornesRecharge.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/agglomeration/Route.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/optimisation/OptimisationBorne.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/exceptions/EntreeNonValideExceptions.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/exceptions/RouteDupliqueeExceptions.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/exceptions/VilleInexisistanteExceptions.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/jgm/exceptions/VilleDupliqueeExceptions.java
