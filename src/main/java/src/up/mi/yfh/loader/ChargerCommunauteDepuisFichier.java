@@ -13,12 +13,13 @@ import main.java.src.up.mi.yfh.exceptions.*;
 public class ChargerCommunauteDepuisFichier {
 
     private CommunauteAgglomeration communaute;
-    	
+
     /**
      * Constructeur de la classe ChargerCommunaute.
      * Charge la communauté d'agglomération depuis un fichier donné.
      *
-     * @param cheminFichier Le chemin du fichier contenant les informations sur la communauté d'agglomération.
+     * @param cheminFichier Le chemin du fichier contenant les informations sur la
+     *                      communauté d'agglomération.
      * @throws IOException En cas d'erreur de lecture du fichier.
      */
     public ChargerCommunauteDepuisFichier(String cheminFichier) throws IOException {
@@ -29,7 +30,8 @@ public class ChargerCommunauteDepuisFichier {
     /**
      * Charge les données de la communauté d'agglomération depuis un fichier texte.
      *
-     * @param cheminFichier Le chemin du fichier contenant les informations sur la communauté d'agglomération.
+     * @param cheminFichier Le chemin du fichier contenant les informations sur la
+     *                      communauté d'agglomération.
      * @throws IOException En cas d'erreur de lecture du fichier.
      */
     private void chargerDepuisFichier(String cheminFichier) throws IOException {
@@ -53,11 +55,12 @@ public class ChargerCommunauteDepuisFichier {
                     // Si la ligne contient une définition de ville
                     String nomVille = matcherVille.group(1);
                     if (!villesExistantes.contains(nomVille)) {
-                    	Ville ville = new Ville(nomVille);
+                        Ville ville = new Ville(nomVille);
                         communaute.ajouterVille(ville);
                         villesExistantes.add(nomVille);
                     } else {
-                        throw new VilleDupliqueeExceptions("Erreur : La ville " + nomVille + " est définie plus d'une fois.");
+                        throw new VilleDupliqueeExceptions(
+                                "ERREUR : La ville " + nomVille + " est définie plus d'une fois.");
                     }
                 } else if (matcherRoute.find()) {
                     // Si la ligne contient une définition de route
@@ -66,13 +69,16 @@ public class ChargerCommunauteDepuisFichier {
                     if (villesExistantes.contains(villeA) && villesExistantes.contains(villeB)) {
                         String routeKey = villeA + "-" + villeB;
                         if (!routesExistantes.contains(routeKey)) {
-                            communaute.ajouterRoute(new Route(communaute.getVilleParNom(villeA), communaute.getVilleParNom(villeB)));
+                            communaute.ajouterRoute(
+                                    new Route(communaute.getVilleParNom(villeA), communaute.getVilleParNom(villeB)));
                             routesExistantes.add(routeKey);
                         } else {
-                            throw new RouteDupliqueeExceptions("Erreur : La route entre " + villeA + " et " + villeB + " est définie plus d'une fois.");
+                            throw new RouteDupliqueeExceptions("ERREUR : La route entre " + villeA + " et " + villeB
+                                    + " est définie plus d'une fois.");
                         }
                     } else {
-                        throw new VilleInexisistanteExceptions("Erreur : Les villes " + villeA + " ou " + villeB + " n'existent pas.");
+                        throw new VilleInexisistanteExceptions(
+                                "ERREUR : Les villes " + villeA + " ou " + villeB + " n'existent pas.");
                     }
 
                 } else if (matcherRecharge.find()) {
@@ -82,15 +88,16 @@ public class ChargerCommunauteDepuisFichier {
                     if (ville != null) {
                         ville.ajouterBorneRecharge();
                     } else {
-                        throw new VIlleRechargeInexistante("Erreur : La ville " + villeRecharge + " pour la zone de recharge n'existe pas.");
+                        throw new VIlleRechargeInexistante(
+                                "ERREUR : La ville " + villeRecharge + " pour la zone de recharge n'existe pas.");
                     }
                 } else {
-              
+
                 }
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            throw new RuntimeException("Erreur lors de la lecture du fichier : " + e.getMessage());
+            throw new RuntimeException("ERREUR lors de la lecture du fichier : " + e.getMessage());
         }
     }
 

@@ -18,8 +18,8 @@ public class Ville {
         this.nom = nom;
         this.possedeBorneRecharge = false; // une ville ne possède pas de borne de recharge par défaut
     }
-    
-    //getter
+
+    // getter
     public String getNom() {
         return nom;
     }
