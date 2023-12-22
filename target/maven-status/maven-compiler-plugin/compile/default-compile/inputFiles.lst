@@ -1,0 +1,12 @@
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/agglomeration/CommunauteAgglomeration.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/agglomeration/Route.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/exception/VilleRechargeInexistante.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/optimisation/OptimisationBorne.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/agglomeration/Ville.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/exception/EntreeNonValideException.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/exception/RouteDupliqueeException.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/exception/VilleDupliqueeException.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/main/Main.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/exception/VilleInexistanteException.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/loader/ChargerCommunauteDepuisFichier.java
+/home/user/Eclipse-java/Projet/src/main/java/src/up/mi/akhy/gestion/GestionBorneRecharge.java
