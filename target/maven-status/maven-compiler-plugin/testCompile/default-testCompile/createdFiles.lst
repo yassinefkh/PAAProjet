@@ -1,4 +1,4 @@
-src/up/mi/akhy/agglomeration/CommunauteAgglomerationTest.class
-src/up/mi/akhy/agglomeration/VilleTest.class
-src/up/mi/akhy/gestion/GestionBorneRechargeTest.class
-src/up/mi/akhy/agglomeration/RouteTest.class
+src/up/mi/yfh/agglomeration/VilleTest.class
+src/up/mi/yfh/agglomeration/RouteTest.class
+src/up/mi/yfh/agglomeration/CommunauteAgglomerationTest.class
+src/up/mi/yfh/gestion/GestionBorneRechargeTest.class

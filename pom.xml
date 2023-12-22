@@ -37,7 +37,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>src.up.mi.akhy.main.Main</mainClass>
+                            <mainClass>src.up.mi.yfh.main.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

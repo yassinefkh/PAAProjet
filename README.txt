@@ -20,7 +20,10 @@ Nous avons essayé d'implémenter un algorithme d'approximation, meilleur que ce
 
 ////// Exécution  //////////////////////////////////////////////////////////////////
 Pour exécuter le programme, vous pouvez utiliser la commande suivante (une fois dans le dossier target) :
- /ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/akhy/loader/communaute.txt
+java -jar Projet-0.0.1-SNAPSHOT.jar communaute.txt 
+
+
+
 
 
 // Auteurs // 

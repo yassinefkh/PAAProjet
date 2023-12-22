@@ -39,7 +39,7 @@ Mais il existe sûrement un algorithme qui donne une solution optimale malgré q
 
 Pour exécuter le programme, vous pouvez utiliser la commande suivante (une fois dans le dossier **target**) :
 ```bash 
- /ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/akhy/loader/communaute.txt
+ java -jar Projet-0.0.1-SNAPSHOT.jar communaute.txt
  ```
 
 
