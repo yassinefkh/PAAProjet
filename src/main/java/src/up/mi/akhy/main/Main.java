@@ -83,11 +83,49 @@ public class Main {
     }
 
     private static void resoudreAutomatiquement() {
-        appliquerSolutionNaive(communaute);
-        OptimisationBorne.algorithmeApproximation(communaute, communaute.getVilles().size() * 2);
-        //OptimisationBorne.alomVertexCover(communaute);
+        boolean gestionTerminee = false;
+    
+        while (!gestionTerminee) {
+            System.out.println("\n*************************************************");
+            System.out.println("     Menu de Résolution Automatique");
+            System.out.println("*************************************************");
+            System.out.println("Choisissez un algorithme :");
+            System.out.println("1) Algorithme d'approximation");
+            System.out.println("2) Algorithme Personnalisé");
+            System.out.println("3) Retourner au menu principal");
+            System.out.print("Votre choix : ");
+    
+            try {
+                int choix = scanner.nextInt();
+                scanner.nextLine();
+                switch (choix) {
+                    case 1:
+                        System.out.println("\n* * * * * EXÉCUTION DE L'ALGORITHME D'APPROXIMATION * * * * *\n");
+                        OptimisationBorne.algorithmeApproximation(communaute, communaute.getVilles().size() * 2);
+                        CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
+                        System.out.println("* * * * * FIN DE L'ALGORITHME D'APPROXIMATION * * * * *\n");
+                        break;
+                    case 2:
+                        System.out.println("\n* * * * * EXÉCUTION DE L'ALGORITHME PERSONNALISÉ * * * * *\n");
+                        OptimisationBorne.algorithmeCouverture(communaute);
+                        CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
+                        System.out.println("* * * * * FIN DE L'ALGORITHME PERSONNALISÉ * * * * *\n");
+                        break;
+                    case 3:
+                        gestionTerminee = true;
+                        break;
+                    default:
+                        System.out.println("Choix invalide, veuillez choisir une option valide.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrée invalide. Veuillez entrer un nombre.");
+                scanner.nextLine();
+            }
+        }
+    
         CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
     }
+    
 
     private static void resoudreManuellement() {
         // Vérifier si la solution actuelle est valide ou non
@@ -98,7 +136,9 @@ public class Main {
 
         boolean gestionTerminee = false;
         while (!gestionTerminee) {
-            System.out.println("\n--- Menu de Gestion Manuelle des Bornes de Recharge ---");
+            System.out.println("\n*************************************************");
+            System.out.println("     Menu de Gestion Manuelle des Bornes de Recharge");
+            System.out.println("*************************************************");
             CommunauteAgglomeration.afficherInformationsCommunaute(communaute);
             System.out.println("1) Ajouter une zone de recharge");
             System.out.println("2) Retirer une zone de recharge");
@@ -197,66 +237,6 @@ public class Main {
     }
     
 
-    private static void ajouterRoute() {
-    	// demande à l'utilisateur de saisir la ville de départ
-        System.out.print("Ville de départ : ");
-        String nomVilleA = scanner.nextLine();
-        
-        // demande à l'utilisateur de saisir la ville d'arrivée
-        System.out.print("Ville d'arrivée : ");
-        String nomVilleB = scanner.nextLine();
-
-        Ville villeA = communaute.getVilleParNom(nomVilleA);
-        Ville villeB = communaute.getVilleParNom(nomVilleB);
-
-        // Vérifie si les villes de départ et d'arrivée existent dans la communauté
-        if (villeA != null && villeB != null) {
-        	 // Crée une nouvelle Route entre les deux villes
-            Route route = new Route(villeA, villeB);
-            
-            // Ajoute la route à la communauté et vérifie si elle a été ajoutée avec succès
-            boolean routeAjoutee = communaute.ajouterRoute(route);
-            if (routeAjoutee) {
-                System.out.println("Route ajoutée entre " + nomVilleA + " et " + nomVilleB + ".");
-            } else {
-                System.out.println("Cette route existe déjà entre " + nomVilleA + " et " + nomVilleB + ".");
-            }
-        } else {
-            System.out.println("Ville non trouvée, vérifiez les noms.");
-        }
-    }
-
-    private static void gererBornesRecharge() {
-        boolean solutionTrouvee = false;
-
-        while (!solutionTrouvee) {
-            System.out.println("\n================ Menu de Gestion des Bornes de Recharge ================");
-            communaute.afficherRoutes();
-            System.out.println("1) Ajouter une zone de recharge");
-            System.out.println("2) Retirer une zone de recharge");
-            System.out.println("3) Terminer la gestion");
-            System.out.println("---- Liste des villes avec des bornes de recharge ----");
-            System.out.println(GestionBorneRecharge.listeVillesAvecBornesRecharge(communaute));
-            System.out.println("-----------------------------------------------------");
-            System.out.print("Votre choix : ");
-            int choixGestion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choixGestion) {
-                case 1:
-                    ajouterZoneDeRecharge();
-                    break;
-                case 2:
-                    retirerZoneDeRecharge();
-                    break;
-                case 3:
-                    solutionTrouvee = true;
-                    break;
-                default:
-                    System.out.println("Choix invalide, veuillez choisir une option valide.");
-            }
-        }
-    }
 
     private static void ajouterZoneDeRecharge() {
         System.out.print("Nom de la ville où ajouter une zone de recharge : ");
@@ -296,14 +276,14 @@ public class Main {
     
     private static void sauvegarderSolution() {
         System.out.print("Veuillez entrer le chemin du fichier de sauvegarde : ");
-        scanner.nextLine(); // Nettoyer le buffer
+        scanner.nextLine(); 
         String cheminSauvegarde = scanner.nextLine();
 
         // Vérification du chemin et des permissions
         File fichierSauvegarde = new File(cheminSauvegarde);
         if (!fichierSauvegarde.exists() || !fichierSauvegarde.canWrite()) {
             System.out.println("Vous n'avez pas la permission d'écrire dans ce fichier ou le chemin est invalide.");
-            return; // Retourner pour permettre une nouvelle tentative
+            return; 
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(cheminSauvegarde))) {

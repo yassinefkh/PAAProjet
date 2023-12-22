@@ -1,6 +1,5 @@
 package src.up.mi.akhy.agglomeration;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +15,8 @@ public class CommunauteAgglomeration {
 
     /**
      * Constructeur par défaut de la classe CommunauteAgglomeration.
-     * Initialise les listes de villes et de routes, ainsi que la map d'association des noms de villes.
+     * Initialise les listes de villes et de routes, ainsi que la map d'association
+     * des noms de villes.
      */
     public CommunauteAgglomeration() {
         villes = new ArrayList<>();
@@ -38,7 +38,8 @@ public class CommunauteAgglomeration {
      * Ajoute une route à la communauté d'agglomération si elle n'existe pas déjà.
      *
      * @param route La route à ajouter.
-     * @return true si la route a été ajoutée avec succès, false si la route existe déjà.
+     * @return true si la route a été ajoutée avec succès, false si la route existe
+     *         déjà.
      */
     public boolean ajouterRoute(Route route) {
         if (!routes.contains(route)) {
@@ -148,12 +149,14 @@ public class CommunauteAgglomeration {
      * Affiche les informations détaillées sur la communauté d'agglomération.
      */
     public static void afficherInformationsCommunaute(CommunauteAgglomeration communaute) {
-        System.out.println("Informations sur la communauté d'agglomération:\n");
+        System.out.println("\n*************************************************");
+        System.out.println("     Informations sur la communauté d'agglomération");
+        System.out.println("*************************************************");
 
-        System.out.println("Liste des villes:");
+        System.out.println("\nListe des villes:");
         for (Ville ville : communaute.getVilles()) {
-            System.out
-                    .println("- " + ville.getNom() + (ville.possedeBorneRecharge() ? " (avec borne de recharge)" : ""));
+            String borneRecharge = ville.possedeBorneRecharge() ? " (avec borne de recharge)" : "";
+            System.out.println("- " + ville.getNom() + borneRecharge);
         }
 
         System.out.println("\nListe des routes:");
@@ -161,13 +164,15 @@ public class CommunauteAgglomeration {
             System.out.println("- Route entre " + route.getVilleA().getNom() + " et " + route.getVilleB().getNom());
         }
 
+        System.out.println("\nListe des villes avec borne de recharge:");
         communaute.afficherVillesAvecZoneDeRecharge();
 
-        System.out.println("\n----------------------------------------------\n");
+        System.out.println("\n*************************************************\n");
     }
 
     /**
-     * Retire une borne de recharge de la ville spécifiée si elle appartient à la communauté d'agglomération.
+     * Retire une borne de recharge de la ville spécifiée si elle appartient à la
+     * communauté d'agglomération.
      *
      * @param ville La ville de laquelle retirer la borne de recharge.
      */

@@ -17,7 +17,7 @@ public class Ville {
      */
     public Ville(String nom) {
         this.nom = nom;
-        this.possedeBorneRecharge = true; // une ville ne possède pas de borne de recharge par défaut
+        this.possedeBorneRecharge = false; // une ville ne possède pas de borne de recharge par défaut
     }
 
     

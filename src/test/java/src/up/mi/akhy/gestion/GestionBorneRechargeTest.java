@@ -20,7 +20,6 @@ public class GestionBorneRechargeTest {
         communaute.ajouterVille(villeB);
         villeA.ajouterBorneRecharge();
 
-        // Act
         String resultat = GestionBorneRecharge.listeVillesAvecBornesRecharge(communaute);
 
         // Assert
