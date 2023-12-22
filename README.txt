@@ -1,13 +1,16 @@
 ////// Projet de Programmation Java OOP, L3 Université Paris-Cité //////
+
 Ce projet a pour but de créer un programme Java qui simule une communauté d'agglomération afin d'optimiser l'installation de bornes de recharges.
 La communauté est représentée par un graphe non-orienté, où les nœuds sont des villes et les arêtes des routes. Le programme permettra de configurer manuellement les zones de recharge, tout en respectant les contraintes d'accessibilité et d'économie. Des solutions optimales seront recherchées pour minimiser le nombre de zones de recharge nécessaires.
 
 ////// Structure  //////////////////////////////////////////////////////////////////
+
 Le fichier principal Main se trouve dans : /ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/akhy/Main.java
 Le fichier texte qui contient les informations sur les villes, les routes, etc. se trouve dans : /ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/target
 
 ////// Fonctionnalités //////////////////////////////////////////////////////////////////
 ////// Fonctionnalités correctement implémentées //////
+
 Dans notre programme, nous pouvons correctement :
 - Importer depuis un fichier texte une communauté d'agglomération, c'est-à-dire les ajouts de villes, de routes et de bornes de recharge.
 - Trouver une solution manuellement et automatique.
@@ -17,9 +20,11 @@ Dans notre programme, nous pouvons correctement :
 - Possiblité de visualiser le site de la Javadoc générée.
 
 ////// Fonctionnalités implémentées mais ... //////
+
 Nous avons essayé d'implémenter un algorithme d'approximation, meilleur que celui du sujet qui est basé sur de l'aléatoire. Mais il existe sûrement un algorithme qui donne une solution optimale malgré que ce soit un problème NP-Complet (ressemble au Vertex Cover Problem).
 
 ////// Exécution  //////////////////////////////////////////////////////////////////
+
 Pour exécuter le programme, vous pouvez utiliser la commande suivante (une fois dans le dossier target) :
 java -jar Projet-0.0.1-SNAPSHOT.jar communaute.txt 
 
