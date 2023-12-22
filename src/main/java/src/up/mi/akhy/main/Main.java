@@ -266,8 +266,7 @@ public class Main {
                 villeRetrait.retirerBorneRecharge();
                 System.out.println("Zone de recharge retirée de la ville " + nomVilleRetrait + ".");
             } else {
-                System.out.println(
-                    "\n[Erreur] Retrait de la zone de recharge refusé : Violation des règles d'accessibilité.");
+                System.out.println("\n\033[31m[Erreur] Retrait de la zone de recharge refusé : Violation des règles d'accessibilité.\033[0m");
             }
         } else {
             System.out.println("Ville non trouvée, vérifiez le nom.");
