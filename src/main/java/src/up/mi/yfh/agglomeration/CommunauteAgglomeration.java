@@ -1,4 +1,5 @@
 package main.java.src.up.mi.yfh.agglomeration;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
