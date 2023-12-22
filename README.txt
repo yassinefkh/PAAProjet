@@ -5,9 +5,9 @@ La communauté est représentée par un graphe non-orienté, où les nœuds sont
 
 ////// Structure  //////////////////////////////////////////////////////////////////
 
-Le fichier principal Main se trouve dans : /ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/akhy/Main.java
-Le fichier texte qui contient les informations sur les villes, les routes, etc. se trouve dans : /ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/target
-
+Le fichier principal Main se trouve dans : "/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/yfh/Main.java"
+Le fichier texte qui contient les informations sur les villes, les routes, etc. se trouve dans : "/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/target"
+ou bien ou bien dans "/ProjetPAA_KADIC_Anais_FEKIH_HASSEN_Yassine/src/main/java/src/up/mi/yfh/loader/communaute.txt" si jamais ce fichier disparaît suite à une commande mvn.
 ////// Fonctionnalités //////////////////////////////////////////////////////////////////
 ////// Fonctionnalités correctement implémentées //////
 
@@ -18,6 +18,7 @@ Dans notre programme, nous pouvons correctement :
   - Solution automatique : exécution de l'algorithme d'optimisation, soit le deuxième du sujet ou un autre que nous avons implémenté.
 - Visualisation textuelle des informations concernant la communauté d'agglomération.
 - Possiblité de visualiser le site de la Javadoc générée.
+- Tests unitaires effectués.
 
 ////// Fonctionnalités implémentées mais ... //////
 
