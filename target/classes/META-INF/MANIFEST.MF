@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Build-Jdk-Spec: 17
-Main-Class: src.up.mi.akhy.main.Main
-Created-By: Maven Integration for Eclipse
-

@@ -65,7 +65,7 @@ public class Main {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Veuillez entrer un nombre valide.");
-                scanner.nextLine(); /
+                scanner.nextLine(); 
             }
         } while (choix != 4);
         scanner.close();
