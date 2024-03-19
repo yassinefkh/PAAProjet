@@ -1,3 +1,8 @@
+# AUTEURS
+
+Projet en binôme : FEKIH HASSEN Yassine & KADIC Anais
+
+
 # REMARQUE
 Ce readme est fichier markdown pour GitHub, il s'affiche donc correctement sur github : (https://github.com/snaazy/PAAProjet)
 
